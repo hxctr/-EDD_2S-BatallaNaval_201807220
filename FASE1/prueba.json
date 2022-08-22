@@ -1,0 +1,119 @@
+{
+    "usuarios": [
+        {
+            "nick": "sdf",
+            "password": "123",
+            "monedas": "78.697",
+            "edad": "12"
+        },
+        {
+            "nick": "vccb",
+            "password": "456",
+            "monedas": "12.55",
+            "edad": "23"
+        },
+        {
+            "nick": "nbmbn",
+            "password": "789",
+            "monedas": "86",
+            "edad": "65"
+        }
+        ,
+        {
+            "nick": "nbmbn",
+            "password": "789",
+            "monedas": "86",
+            "edad": "65"
+        },
+        {
+            "nick": "nbmbn",
+            "password": "789",
+            "monedas": "86",
+            "edad": "65"
+        },
+        {
+            "nick": "nbmbn",
+            "password": "789",
+            "monedas": "86",
+            "edad": "65"
+        }
+    ],
+    "articulos": [
+        {
+            "id": "12365",
+            "categoria": "Epico",
+            "precio": "12",
+            "nombre": "Pelota",
+            "src": "img1"
+        },
+        {
+            "id": "56987",
+            "categoria": "Raro",
+            "precio": "47",
+            "nombre": "Carrito",
+            "src": "img2"
+        },
+        {
+            "id": "789321",
+            "categoria": "Legendario",
+            "precio": "63",
+            "nombre": "Trompo",
+            "src": "img3"
+        },{
+            "id": "789321",
+            "categoria": "Legendario",
+            "precio": "63",
+            "nombre": "maquina",
+            "src": "img3"
+        },{
+            "id": "789321",
+            "categoria": "Raro",
+            "precio": "63",
+            "nombre": "Grama",
+            "src": "img3"
+        },{
+            "id": "789321",
+            "categoria": "Epico",
+            "precio": "63",
+            "nombre": "Diamante",
+            "src": "img3"
+        },{
+            "id": "789321",
+            "categoria": "Raro",
+            "precio": "63",
+            "nombre": "Acetire",
+            "src": "img3"
+        },{
+            "id": "789321",
+            "categoria": "Epico",
+            "precio": "63",
+            "nombre": "Clonazepam",
+            "src": "img3"
+        },
+        {
+            "id": "789321",
+            "categoria": "Legendario",
+            "precio": "63",
+            "nombre": "agua helada",
+            "src": "img3"
+        }
+    ],
+    "tutorial": {
+        "ancho": "20",
+        "alto": "25",
+        "movimientos": [
+            {
+                "x": "1",
+                "y": "2"
+            },
+            {
+                "x": "4",
+                "y": "3"
+            },
+            {
+                "x": "5",
+                "y": "13"
+            }
+        ]
+    }
+}
