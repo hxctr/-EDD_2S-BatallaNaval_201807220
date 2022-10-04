@@ -1,3 +1,4 @@
+[
   {
     "usuarios": [
       {
@@ -9,8 +10,8 @@
       },
       {
         "id": 36,
-        "nick": "hctr",
-        "password": "456",
+        "nick": "Latasha4052",
+        "password": "NEBULEAN",
         "monedas": 2808,
         "edad": 37
       },
@@ -29,6 +30,13 @@
         "edad": 26
       },
       {
+        "id": 45,
+        "nick": "Potts4095",
+        "password": "AQUASSEUR",
+        "monedas": 2158,
+        "edad": 47
+      },
+      {
         "id": 51,
         "nick": "Becky9663",
         "password": "OVERFORK",
@@ -41,6 +49,13 @@
         "password": "STEELTAB",
         "monedas": 5186,
         "edad": 48
+      },
+      {
+        "id": 45,
+        "nick": "Todd3981",
+        "password": "ZEAM",
+        "monedas": 6515,
+        "edad": 51
       },
       {
         "id": 45,
@@ -634,3 +649,4 @@
       ]
     }
   }
+]
