@@ -627,7 +627,7 @@ def change_to_login():
 # Now we get to the program itself:-
 # Let's set up the window ...
 root = tk.Tk()
-root.title("My Work - Swapping frames")
+root.title("Batalla naval :(")
 root.configure(bg='lightyellow')
 # Set the icon used for your program
 
