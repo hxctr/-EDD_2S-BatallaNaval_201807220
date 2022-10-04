@@ -28,25 +28,27 @@ def loadUsers():
     list_items.insertInfo(15)
     list_items.insertInfo(40)
     list_items.insertInfo(30)
-    op_file = open('Entradafinal.json')
+    
     
     path_file = simpledialog.askstring("Ingrese la ruta del archivo .json: ", 'Ingrese la ruta', parent=root)
     
     if path_file is not None:
         print('la ruta es: ', path_file)
+        op_file = open(path_file)
+        data = json.load(op_file)
+
+        for usuario in data ['usuarios']:
+            users_object.insert(usuario['id'], usuario['nick'], usuario['password'], usuario['monedas'], usuario['edad'], list_items)
+        
+        for item in data['articulos']:
+            items_object.insert(item['id'], item['categoria'], item['nombre'], item['precio'], item['src'])
+        
+        
+        op_file.close()
     else:
         print('Ruta equivocada')
     
-    data = json.load(op_file)
-
-    for usuario in data ['usuarios']:
-        users_object.insert(usuario['id'], usuario['nick'], usuario['password'], usuario['monedas'], usuario['edad'], list_items)
     
-    for item in data['articulos']:
-        items_object.insert(item['id'], item['categoria'], item['nombre'], item['precio'], item['src'])
-    
-    
-    op_file.close()
     
 # loadUsers()
     
@@ -618,6 +620,7 @@ def change_to_store():
 
 def change_to_login():
     login_frame.pack(fill='both', expand=1)
+    user_frame.forget()
     admin_frame.forget()
 
 
@@ -740,9 +743,9 @@ btn_log_login["command"] = login
 
 
 # And finally, the button to swap between the frames.
-btn_change_to_work = tk.Button(
-    login_frame, text='Change to work', font=font_small, command=change_to_admin)
-btn_change_to_work.pack(pady=20)
+# btn_change_to_work = tk.Button(
+#     login_frame, text='Change to work', font=font_small, command=change_to_admin)
+# btn_change_to_work.pack(pady=20)
 
 # The widgets needed for the work frame.
 # These are only being used in this example
@@ -775,7 +778,7 @@ lbl_heading_user.pack(pady=20)
 
 #Admin buttons
 btn_change_to_quiz = tk.Button(
-    admin_frame, font=font_small, text='Change to login', command=change_to_login)
+    admin_frame, font=font_small, text='Cerrar sesion', command=change_to_login)
 btn_change_to_quiz.pack(pady=20)
 
 show_asc_users = tk.Button(
@@ -793,8 +796,12 @@ show_btree.pack(pady=85)
 
 #buttons for user interface
 show_tienda = tk.Button(
-    user_frame, font=font_small, text='si ir Ir a la tienda', command=change_to_tienda)
+    user_frame, font=font_small, text='Ir a la tienda', command=change_to_tienda)
 show_tienda.pack(pady=85)
+
+show_admn = tk.Button(
+    user_frame, font=font_small, text='Cerrar Sesion', command=change_to_login)
+show_admn.pack(pady=85)
 
 # show_return_usuario = tk.Button(
 #     tienda_frame, font=font_small, text='Regresar al usuario', command=change_to_user)
