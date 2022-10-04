@@ -1,3 +1,3 @@
-swig -python -c++ items.i
-g++ -c -fpic items_wrap.cxx -I/usr/include/python3.8
-g++ -shared items_wrap.o -o _items.so
+swig -python -c++ ALVTree.i
+g++ -c -fpic ALVTree_wrap.cxx -I/usr/include/python3.8
+g++ -shared ALVTree_wrap.o -o _ALVTree.so

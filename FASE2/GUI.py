@@ -12,11 +12,14 @@ import json
 import btree
 import Users
 import items
+import ALVTree
 
 btree_object = btree.ArbolB()
 users_object = Users.UsersList()
 list_items = Users.ItemsList()
 items_object = items.ListaArticulos()
+
+
 
 
 
@@ -80,11 +83,39 @@ def getInUserTab():
 
 
 def buy_item(entry_item, aver):
+    
+    btn_alv = tk.Button()
+    btn_alv = tk.Button(tienda_frame)
+    btn_alv["cursor"] = "heart"
+    ft = tkFont.Font(family='Times', size=18)
+    btn_alv["font"] = ft
+    btn_alv["fg"] = "#ffffff"
+    btn_alv["justify"] = "center"
+    btn_alv["text"] = "Mostrar arbol avl"
+    btn_alv["relief"] = "raised"
+    btn_alv.pack(pady=20)
+    btn_alv["command"] = generate_img()
+    
     avr = list()
     avr = aver
     avr.append(entry_item)
+    # print(avr)
+    #Here, I will insert into avl
+    #ety_user_login.get()
+    
+    avr = list(map(int, avr))
     print(avr)
-    print(entry_item)
+    alv_object = ALVTree.AVLTree()
+    
+    
+    for i in range(len(avr)):
+        print(i)
+        info_object = ALVTree.Info(avr[i])
+        alv_object.addToTree(info_object)
+    alv_object.graphTree()        
+    
+    
+    
 
 def generate_img():
     pass
@@ -130,17 +161,7 @@ def mostrarTienda(articulos):
     btn_rt_asc_frame.pack(pady=20)
     btn_rt_asc_frame["command"] = change_to_user
     
-    btn_alv = tk.Button()
-    btn_alv = tk.Button(tienda_frame)
-    btn_alv["cursor"] = "heart"
-    ft = tkFont.Font(family='Times', size=18)
-    btn_alv["font"] = ft
-    btn_alv["fg"] = "#ffffff"
-    btn_alv["justify"] = "center"
-    btn_alv["text"] = "Mostrar arbol avl"
-    btn_alv["relief"] = "raised"
-    btn_alv.pack(pady=20)
-    btn_alv["command"] = generate_img()
+    
     
     
     #nuevo intento
