@@ -1,0 +1,3 @@
+swig -python -c++ items.i
+g++ -c -fpic items_wrap.cxx -I/usr/include/python3.8
+g++ -shared items_wrap.o -o _items.so

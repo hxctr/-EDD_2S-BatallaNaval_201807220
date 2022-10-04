@@ -171,7 +171,7 @@ public:
         }
     }
 
-    void print(){
+    void _print(){
         UsersNode *temp = this->start;
         while (temp != nullptr)
         {

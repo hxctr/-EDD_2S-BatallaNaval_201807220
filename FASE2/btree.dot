@@ -1,0 +1,10 @@
+digraph G {
+node[shape=record]
+		
+R0x20ef430[label="<C1>|34|<C2>"];
+R0x20ef310[label="9|29|30|32"];
+R0x20ef460[label="36|44|45|51"];
+		
+R0x20ef430:C1->R0x20ef310;
+R0x20ef430:C2->R0x20ef460;
+}

@@ -1,5 +1,4 @@
 #include <stddef.h>
-#include <windows.h>
 #include <fstream>
 #include <string>
 #include <sstream>
