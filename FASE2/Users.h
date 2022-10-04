@@ -116,6 +116,10 @@ public:
         this->next = nullptr;
     }
 
+    void setLinkedList(ItemsList newlist){
+        this->linked_list = newlist;
+    }
+
     void setId(int id){
         this->id = id;
     }
@@ -176,6 +180,19 @@ public:
         while (temp != nullptr)
         {
             cout << "Nick: " + temp->nick + ", Id: " + to_string(temp->id) + "\n";
+            temp = temp->next;
+        }
+        
+    }
+
+    void setNewLinkedList(string nick, ItemsList newlist){
+        UsersNode *temp = this->start;
+        while (temp != nullptr)
+        {
+            if (temp->nick == nick)
+            {
+                temp->setLinkedList(newlist);
+            }
             temp = temp->next;
         }
         
@@ -324,6 +341,25 @@ public:
             }
             temp = temp->next;
         }
+    }
+
+    vector<int> getLkByName(string nick)
+    {
+        UsersNode *temp = this->start;
+        vector<int> secondId;
+
+        while (temp != nullptr)
+        {
+            if (temp->nick == nick)
+            {
+                for (ItemNode *p = temp->linked_list.get_start(); p != nullptr; p = p->next)
+                {
+                    secondId.push_back(p->getId());
+                }
+            }
+            temp = temp->next;
+        }
+        return secondId;
     }
 
     int logUser(string nick, string password)
