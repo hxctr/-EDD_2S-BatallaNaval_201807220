@@ -129,7 +129,7 @@ public:
         return srcvec;
     }
 
-    void print()
+    void _print()
     {
 
         if (this->head == nullptr)
