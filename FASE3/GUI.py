@@ -1,7 +1,7 @@
 from ast import If
 
 from json import load
-from tkinter import Label, PhotoImage, ttk, simpledialog
+from tkinter import Label, PhotoImage, ttk, simpledialog, Canvas
 import tkinter as tk
 import tkinter.font as tkFont
 from unicodedata import category
@@ -9,10 +9,13 @@ from PIL import Image, ImageTk
 import os
 import json
 
+from scrollmg import ScrollableImage
+
 import btree
 import Users
 import items
 import ALVTree
+from MatrizDispersa import MatrizDispersa
 
 btree_object = btree.ArbolB()
 users_object = Users.UsersList()
@@ -20,6 +23,286 @@ list_items = Users.ItemsList()
 items_object = items.ListaArticulos()
 
 
+
+
+def insertMatrixPlayerOne():
+    # for widget in play_frame.winfo_children():
+    #     widget.destroy()
+        
+    
+        
+    matriz_size_player_1 = simpledialog.askstring("Ingrese el tamaño de su matriz: ", 'Jugador 1', parent=root)
+    matriz_size_player_1 = int(matriz_size_player_1)
+    print('pressed button to fill matrix')
+    matriz = MatrizDispersa(0)
+    if matriz_size_player_1 is not None:
+        
+        if matriz_size_player_1 >= 11 and matriz_size_player_1 <= 20:
+            firstFill(matriz_size_player_1, matriz)
+            matriz.graficarNeato("jugador_1")
+            setMatrixOne()
+        elif matriz_size_player_1 >= 21 and matriz_size_player_1 <= 30:
+            secondFill(matriz_size_player_1, matriz)
+            matriz.graficarNeato("jugador_1")
+
+def setMatrixOne():
+    
+    # for widget in play_frame.winfo_children():
+    #     widget.destroy()
+    
+    # ask_size_matrix_player_1 = tk.Button(
+    # play_frame, font=font_small, text='Ingresar datos jugador 1', command=insertMatrixPlayerOne)
+    # ask_size_matrix_player_1.place(relx=0.7, rely=0.2)
+    #Si recarga solo si quitar esto, sino si agregarlo
+    
+    zoom = 1.8
+    
+    img_frame = tk.Frame(play_frame, height=400, width=600, borderwidth=1, bg="RED")
+    img_frame.place(relx=0.05, rely=0.3)
+    
+    canvas = tk.Canvas(img_frame, height=400, width=600, relief=tk.SUNKEN)
+    
+    sbarV = tk.Scrollbar(img_frame, orient=tk.VERTICAL, command=canvas.yview)    
+    sbarH = tk.Scrollbar(img_frame, orient=tk.HORIZONTAL, command=canvas.xview)  
+    sbarV.pack(side=tk.RIGHT, fill=tk.Y)
+    sbarH.pack(side=tk.BOTTOM, fill=tk.X)
+    
+    canvas.config(yscrollcommand=sbarV.set)
+    canvas.config(xscrollcommand=sbarH.set)
+    canvas.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
+    
+    imagencita = Image.open('./Graphviz/matriz_jugador_1.png')
+    width, height = imagencita.size
+    canvas.config(scrollregion=(0,0, width, height))
+    img2 = ImageTk.PhotoImage(imagencita)
+    imagesprite = canvas.create_image(0,0,anchor = "nw", image=img2)
+    img_frame.image =  img2
+    img_frame.img2 = img2
+    
+    # matriz1, matriz2 = tuple([int(zoom * x) for x in imagencita.size])
+    # btree_img = ImageTk.PhotoImage(imagencita.resize((400, 400)))
+    # lbl_btree_img = tk.Label(play_frame, image=btree_img)
+    
+    # image_window = ScrollableImage(play_frame, image=btree_img, scrollbarwidth = 6, width = 400, height=400)
+    # image_window.pack()
+    # lbl_btree_img.image = btree_img
+    # lbl_btree_img.btree_img = btree_img
+    # lbl_btree_img.place(x=40, y=240)
+
+
+def setMatrixTwo():
+    
+    # for widget in play_frame.winfo_children():
+    #     widget.destroy()
+    
+    # ask_size_matrix_player_1 = tk.Button(
+    # play_frame, font=font_small, text='Ingresar datos jugador 1', command=insertMatrixPlayerOne)
+    # ask_size_matrix_player_1.place(relx=0.7, rely=0.2)
+    #Si recarga solo si quitar esto, sino si agregarlo
+    
+    zoom = 1.8
+    
+    img_frame = tk.Frame(play_frame, height=400, width=600, borderwidth=1, bg="RED")
+    img_frame.place(relx=0.55, rely=0.3)
+    
+    canvas = tk.Canvas(img_frame, height=400, width=600, relief=tk.SUNKEN)
+    
+    sbarV = tk.Scrollbar(img_frame, orient=tk.VERTICAL, command=canvas.yview)    
+    sbarH = tk.Scrollbar(img_frame, orient=tk.HORIZONTAL, command=canvas.xview)  
+    sbarV.pack(side=tk.RIGHT, fill=tk.Y)
+    sbarH.pack(side=tk.BOTTOM, fill=tk.X)
+    
+    canvas.config(yscrollcommand=sbarV.set)
+    canvas.config(xscrollcommand=sbarH.set)
+    canvas.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
+    
+    imagencita = Image.open('./Graphviz/matriz_jugador_2.png')
+    width, height = imagencita.size
+    canvas.config(scrollregion=(0,0, width, height))
+    img2 = ImageTk.PhotoImage(imagencita)
+    imagesprite = canvas.create_image(0,0,anchor = "nw", image=img2)
+    img_frame.image =  img2
+    img_frame.img2 = img2
+    print('si pasa aqui')
+    
+    # matriz1, matriz2 = tuple([int(zoom * x) for x in imagencita.size])
+    # btree_img = ImageTk.PhotoImage(imagencita.resize((400, 400)))
+    # lbl_btree_img = tk.Label(play_frame, image=btree_img)
+    
+    # image_window = ScrollableImage(play_frame, image=btree_img, scrollbarwidth = 6, width = 400, height=400)
+    # image_window.pack()
+    # lbl_btree_img.image = btree_img
+    # lbl_btree_img.btree_img = btree_img
+    # lbl_btree_img.place(x=40, y=240)
+
+    
+
+def insertMatrixPlayerTwo():
+    matriz_size_player_2 = simpledialog.askstring("Ingrese el tamaño de su matriz: ", 'Jugador 1', parent=root)
+    matriz_size_player_2 = int(matriz_size_player_2)
+    print('pressed button to fill matrix')
+    matriz = MatrizDispersa(1)
+    if matriz_size_player_2 is not None:
+        
+        if matriz_size_player_2 >= 11 and matriz_size_player_2 <= 20:
+            firstFill(matriz_size_player_2, matriz)
+            matriz.graficarNeato("jugador_2")
+            setMatrixTwo()
+        elif matriz_size_player_2 >= 21 and matriz_size_player_2 <= 30:
+            secondFill(matriz_size_player_2, matriz)
+            matriz.graficarNeato("_jugador_2")
+            
+
+#to fill matrix
+def firstFill(tamaño, matriz):#11<= m <= 20
+    #insertar portaaviones
+    top1 = 9
+    exceptions = (4,)
+    for index in range(top1):
+        if index not in exceptions:
+            # print(index)#insert portaaviones
+            matriz.insert(0, index, "P")
+    
+    #submarinos
+    print("submarinos")
+    top2 = 7
+    except2 = (1, 3, 5)
+    for index in range(top2):
+        if index not in except2:
+            # print(index)#insert portaaviones
+            matriz.insert(int(tamaño / 4), index, "S")
+            matriz.insert(1 + int(tamaño / 4), index, "S")
+            matriz.insert(2 + int(tamaño / 4), index, "S")
+    
+    print("Destructores")
+    top3 = 11
+    except3 = (1, 3, 5, 7, 9,)
+    for index in range(top3):
+        if index not in except3:
+            # print(index)#insert portaaviones
+            matriz.insert(int((tamaño / 4)*2), index, "D")
+            matriz.insert(1+int((tamaño / 4)*2), index, "D")
+
+    print("buques")
+    top4 = 13
+    except4 = (3, 5, 7, 9, 11,)
+    for index in range(top4):
+        if index not in except4:
+            # print(index)#insert portaaviones
+            matriz.insert(int((tamaño / 4)*3), index, "B")
+
+def secondFill(tamaño, matriz):#21<= m <= 30
+    #insertar portaaviones
+    top1 = 14
+    exceptions = (4,9,)
+    for index in range(top1):
+        if index not in exceptions:
+            # print(index)#insert portaaviones
+            matriz.insert(0, index, "P")
+    
+    #submarinos
+    print("submarinos")
+    top2 = 11
+    except2 = (1, 3, 5, 7, 9,)
+    for index in range(top2):
+        if index not in except2:
+            # print(index)#insert portaaviones
+            matriz.insert(int(tamaño / 4), index, "S")
+            matriz.insert(1 + int(tamaño / 4), index, "S")
+            matriz.insert(2 + int(tamaño / 4), index, "S")
+    
+    print("Destructores")
+    top3 = 17
+    except3 = (1, 3, 5, 7, 9, 11, 13, 15,)
+    for index in range(top3):
+        if index not in except3:
+            # print(index)#insert portaaviones
+            matriz.insert(int((tamaño / 4)*2), index, "D")
+            matriz.insert(1+int((tamaño / 4)*2), index, "D")
+
+    print("buques")
+    top4 = 21
+    except4 = (3, 5, 7, 9, 11, 13, 15, 17, 19,)
+    for index in range(top4):
+        if index not in except4:
+            # print(index)#insert portaaviones
+            matriz.insert(int((tamaño / 4)*3), index, "B")
+
+def thirdFill(tamaño, matriz):#31<= m <= 40
+    #insertar portaaviones
+    top1 = 19
+    exceptions = (4,9,14,)
+    for index in range(top1):
+        if index not in exceptions:
+            # print(index)#insert portaaviones
+            matriz.insert(0, index, "P")
+    
+    #submarinos
+    print("submarinos")
+    top2 = 15
+    except2 = (1, 3, 5, 7, 9, 11, 13,)
+    for index in range(top2):
+        if index not in except2:
+            # print(index)#insert portaaviones
+            matriz.insert(int(tamaño / 4), index, "S")
+            matriz.insert(1 + int(tamaño / 4), index, "S")
+            matriz.insert(2 + int(tamaño / 4), index, "S")
+    
+    print("Destructores")
+    top3 = 23
+    except3 = (1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21,)
+    for index in range(top3):
+        if index not in except3:
+            # print(index)#insert portaaviones
+            matriz.insert(int((tamaño / 4)*2), index, "D")
+            matriz.insert(1+int((tamaño / 4)*2), index, "D")
+
+    print("buques")
+    top4 = 29
+    except4 = (3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27,)
+    for index in range(top4):
+        if index not in except4:
+            # print(index)#insert portaaviones
+            matriz.insert(int((tamaño / 4)*3), index, "B")
+
+def fourthFill(tamaño, matriz):#41<= m <= 50
+    #insertar portaaviones
+    top1 = 24
+    exceptions = (4,9,14,19,)
+    for index in range(top1):
+        if index not in exceptions:
+            # print(index)#insert portaaviones
+            matriz.insert(0, index, "P")
+    
+    #submarinos
+    print("submarinos")
+    top2 = 19
+    except2 = (1, 3, 5, 7, 9, 11, 13,15,17,)
+    for index in range(top2):
+        if index not in except2:
+            # print(index)#insert portaaviones
+            matriz.insert(int(tamaño / 4), index, "S")
+            matriz.insert(1 + int(tamaño / 4), index, "S")
+            matriz.insert(2 + int(tamaño / 4), index, "S")
+    
+    print("Destructores")
+    top3 = 29
+    except3 = (1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21,23, 25,27,)
+    for index in range(top3):
+        if index not in except3:
+            # print(index)#insert portaaviones
+            matriz.insert(int((tamaño / 4)*2), index, "D")
+            matriz.insert(1+int((tamaño / 4)*2), index, "D")
+
+    print("buques")
+    top4 = 37
+    except4 = (3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27,29, 31, 33, 35,)
+    for index in range(top4):
+        if index not in except4:
+            # print(index)#insert portaaviones
+            matriz.insert(int((tamaño / 4)*3), index, "B")
+
+#Ended methods to fill matrix
 
 
 
@@ -30,7 +313,9 @@ def loadUsers():
     list_items.insertInfo(30)
     
     
-    path_file = simpledialog.askstring("Ingrese la ruta del archivo .json: ", 'Ingrese la ruta', parent=root)
+    # path_file = simpledialog.askstring("Ingrese la ruta del archivo .json: ", 'Ingrese la ruta', parent=root) descomentar luego
+    
+    path_file = '/home/fdd/Descargas/-EDD_2S-BatallaNaval_201807220/FASE3/Entradafinal.json'
     
     if path_file is not None:
         print('la ruta es: ', path_file)
@@ -604,6 +889,17 @@ def change_to_tienda():
     tienda_frame.pack(fill='both', expand=1)
     articulos = list()
     mostrarTienda(articulos)
+
+def change_to_playground():
+    login_frame.forget()
+    admin_frame.forget()
+    user_frame.forget()
+    tienda_frame.forget()
+    # ask_size_matrix_player_1 = tk.Button(
+    # play_frame, font=font_small, text='Ingresar datos jugador 1', command=insertMatrixPlayerOne)
+    # ask_size_matrix_player_1.place(relx=0.7, rely=0.2)
+    play_frame.pack(fill='both', expand=1)
+    
     
 
 def change_to_store():
@@ -631,7 +927,7 @@ root.title("Batalla naval :(")
 root.configure(bg='lightyellow')
 # Set the icon used for your program
 
-width, height = 800, 700
+width, height = 1500, 900
 screen_width = root.winfo_screenwidth()  # To get the width of the screen
 screen_height = root.winfo_screenheight()  # To get the height of the screen
 center_window_on_screen()  # To center the window
@@ -645,6 +941,7 @@ desc_frame = tk.Frame(root)
 btree_frame = tk.Frame(root)
 store_frame = tk.Frame(root)
 tienda_frame = tk.Frame(root)
+play_frame = tk.Frame(root)
 
 # btree_img = ImageTk.PhotoImage(Image.open('btree.jpg'))
 # lbl_btree_img = tk.Label(login_frame, image=btree_img)
@@ -773,6 +1070,11 @@ user_frame, text='Bienvenido usuario'+ety_user_login.get(), font=font_large)
 lbl_heading_user.pack(pady=20)
 
 
+lbl_heading_playground = tk.Label(
+    play_frame, text='Partida del juego', font=font_large)
+lbl_heading_playground.pack(pady=20)
+
+
 
 
 
@@ -799,9 +1101,24 @@ show_tienda = tk.Button(
     user_frame, font=font_small, text='Ir a la tienda', command=change_to_tienda)
 show_tienda.pack(pady=85)
 
+show_playground = tk.Button(
+    user_frame, font=font_small, text='Iniciar Partida', command=change_to_playground)
+show_playground.pack(pady=85)
+
 show_admn = tk.Button(
     user_frame, font=font_small, text='Cerrar Sesion', command=change_to_login)
 show_admn.pack(pady=85)
+
+#buttons for playground interface
+
+
+ask_size_matrix_player_2 = tk.Button(
+    play_frame, font=font_small, text='Ingresar datos jugador 2', command=insertMatrixPlayerTwo)
+ask_size_matrix_player_2.place(relx=0.1, rely=0.2)
+
+ask_size_matrix_player_1 = tk.Button(
+play_frame, font=font_small, text='Ingresar datos jugador 1', command=insertMatrixPlayerOne)
+ask_size_matrix_player_1.place(relx=0.7, rely=0.2)
 
 # show_return_usuario = tk.Button(
 #     tienda_frame, font=font_small, text='Regresar al usuario', command=change_to_user)

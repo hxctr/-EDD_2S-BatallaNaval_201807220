@@ -28,34 +28,34 @@ class MatrizDispersa():
         nodo_Y = self.columnas.getEncabezado(pos_y)
 
         if nodo_X == None: 
-             # --- si nodo_X es nulo, quiere decir que no existe encabezado fila pos_x
+              
             nodo_X = Nodo_Encabezado(pos_x)
             self.filas.insertar_nodoEncabezado(nodo_X)
 
-        if nodo_Y == None: # --- comprobamos que el encabezado columna pos_y exista
-            # --- si nodo_Y es nulo, quiere decir que no existe encabezado columna pos_y
+        if nodo_Y == None:  
+             
             nodo_Y = Nodo_Encabezado(pos_y)
             self.columnas.insertar_nodoEncabezado(nodo_Y)
 
-        # ----- INSERTAR NUEVO EN FILA
-        if nodo_X.acceso == None: # -- comprobamos que el nodo_x no esta apuntando hacia ningun nodoInterno
+         
+        if nodo_X.acceso == None:  
             nodo_X.acceso = nuevo
-        else: # -- si esta apuntando, validamos si la posicion de la columna del NUEVO nodoInterno es menor a la posicion de la columna del acceso 
-            if nuevo.coordenadaY < nodo_X.acceso.coordenadaY: # F1 --->  NI 1,1     NI 1,3
+        else:  
+            if nuevo.coordenadaY < nodo_X.acceso.coordenadaY:  
                 nuevo.derecha = nodo_X.acceso              
                 nodo_X.acceso.izquierda = nuevo
                 nodo_X.acceso = nuevo
             else:
-                #de no cumplirse debemos movernos de izquierda a derecha buscando donde posicionar el NUEVO nodoInterno
-                tmp : Nodo_Interno = nodo_X.acceso     # nodo_X:F1 --->      NI 1,2; NI 1,3; NI 1,5;
-                while tmp != None:                      #NI 1,6
+                 
+                tmp : Nodo_Interno = nodo_X.acceso      
+                while tmp != None:                       
                     if nuevo.coordenadaY < tmp.coordenadaY:
                         nuevo.derecha = tmp
                         nuevo.izquierda = tmp.izquierda
                         tmp.izquierda.derecha = nuevo
                         tmp.izquierda = nuevo
                         break;
-                    elif nuevo.coordenadaX == tmp.coordenadaX and nuevo.coordenadaY == tmp.coordenadaY: #validamos que no haya repetidas
+                    elif nuevo.coordenadaX == tmp.coordenadaX and nuevo.coordenadaY == tmp.coordenadaY:  
                         break;
                     else:
                         if tmp.derecha == None:
@@ -64,20 +64,20 @@ class MatrizDispersa():
                             break;
                         else:
                             tmp = tmp.derecha 
-                             #         nodo_Y:        C1    C3      C5      C6
-                             # nodo_X:F1 --->      NI 1,2; NI 1,3; NI 1,5; NI 1,6;
-                             # nodo_X:F2 --->      NI 2,2; NI 2,3; NI 2,5; NI 2,6;
+                              
+                              
+                              
 
-        # ----- INSERTAR NUEVO EN COLUMNA
-        if nodo_Y.acceso == None:  # -- comprobamos que el nodo_y no esta apuntando hacia ningun nodoCelda
+         
+        if nodo_Y.acceso == None:   
             nodo_Y.acceso = nuevo
-        else: # -- si esta apuntando, validamos si la posicion de la fila del NUEVO nodoCelda es menor a la posicion de la fila del acceso 
+        else:  
             if nuevo.coordenadaX < nodo_Y.acceso.coordenadaX:
                 nuevo.abajo = nodo_Y.acceso
                 nodo_Y.acceso.arriba = nuevo
                 nodo_Y.acceso = nuevo
             else:
-                # de no cumplirse, debemos movernos de arriba hacia abajo buscando donde posicionar el NUEVO
+                 
                 tmp2 : Nodo_Interno = nodo_Y.acceso
                 while tmp2 != None:
                     if nuevo.coordenadaX < tmp2.coordenadaX:
@@ -86,7 +86,7 @@ class MatrizDispersa():
                         tmp2.arriba.abajo = nuevo
                         tmp2.arriba = nuevo
                         break;
-                    elif nuevo.coordenadaX == tmp2.coordenadaX and nuevo.coordenadaY == tmp2.coordenadaY: #validamos que no haya repetidas
+                    elif nuevo.coordenadaX == tmp2.coordenadaX and nuevo.coordenadaY == tmp2.coordenadaY:  
                         break;
                     else:
                         if tmp2.abajo == None:
@@ -96,7 +96,7 @@ class MatrizDispersa():
                         else:
                             tmp2 = tmp2.abajo
 
-        ##------ Fin de insercion
+         
 
 
     def graficarNeato(self, nombre):
@@ -107,8 +107,8 @@ class MatrizDispersa():
         contenido += '''label = "{}" \nfontname="Arial Black" \nfontsize="25pt" \n
                     \n'''.format('\nMATRIZ DISPERSA')
 
-        # --graficar nodos ENCABEZADO
-        # --graficar nodos fila
+         
+         
         pivote = self.filas.primero
         posx = 0
         while pivote != None:
@@ -207,8 +207,9 @@ class MatrizDispersa():
                 
         contenido += '\n}'
          
-        dot = "matriz_{}_dot.txt".format(nombre)
-        with open(dot, 'w') as grafo:
+        dot = "matriz_{}.dot".format(nombre)
+        with open('./Graphviz/'+dot, 'w') as grafo:
             grafo.write(contenido)
         result = "matriz_{}.png".format(nombre)
-        os.system("neato -Tpng " + dot + " -o " + result)
+        
+        os.system("neato -Tpng ./Graphviz/" + dot + " -o ./Graphviz/" + result)

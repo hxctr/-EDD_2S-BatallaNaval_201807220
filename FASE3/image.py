@@ -13,7 +13,7 @@ def insertImage():
     btree_img = ImageTk.PhotoImage(Image.open('pic.jpeg'))
     lbl_btree_img = tk.Label(frame, image=btree_img)
     lbl_btree_img.btree_img = btree_img
-    lbl_btree_img.pack()
+    lbl_btree_img.place(x=20, y=20)
 
 # btree_img = ImageTk.PhotoImage(Image.open('pic.jpeg'))
 # lbl_btree_img = tk.Label(frame, image=btree_img)
