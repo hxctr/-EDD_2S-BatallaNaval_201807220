@@ -15,13 +15,13 @@ import btree
 import Users
 import items
 import ALVTree
-from MatrizDispersa import MatrizDispersa
+
 
 btree_object = btree.ArbolB()
 users_object = Users.UsersList()
 list_items = Users.ItemsList()
 items_object = items.ListaArticulos()
-
+from MatrizDispersa import MatrizDispersa
 
 
 
@@ -88,6 +88,20 @@ def setMatrixOne():
     # lbl_btree_img.image = btree_img
     # lbl_btree_img.btree_img = btree_img
     # lbl_btree_img.place(x=40, y=240)
+
+def getShotsFromP1():
+    xcoor1 = int(x_coord_entry.get())
+    ycoor1 = int(y_coord_entry.get())
+    x_coord_entry.delete(0, 'end')
+    y_coord_entry.delete(0, 'end')
+    print(xcoor1, ycoor1)
+
+def getShotsFromP2():
+    xcoor2 = int(x_coord_entry_2.get())
+    ycoor2 = int(y_coord_entry_2.get())
+    x_coord_entry_2.delete(0, 'end')
+    y_coord_entry_2.delete(0, 'end')
+    print(xcoor2, ycoor2)
 
 
 def setMatrixTwo():
@@ -874,6 +888,7 @@ def change_to_user():
     btree_frame.forget()
     store_frame.forget()
     tienda_frame.forget()
+    play_frame.forget()
     user_frame.pack(fill='both', expand=1)
     
     # getInUserTab()
@@ -1032,7 +1047,8 @@ btn_log_login["justify"] = "center"
 btn_log_login["text"] = "Ingresar"
 btn_log_login["relief"] = "raised"
 btn_log_login.place(x=230, y=360, width=151, height=34)
-btn_log_login["command"] = login
+btn_log_login["command"] = change_to_user 
+#login
 
 # Command for log button
 
@@ -1114,11 +1130,113 @@ show_admn.pack(pady=85)
 
 ask_size_matrix_player_2 = tk.Button(
     play_frame, font=font_small, text='Ingresar datos jugador 2', command=insertMatrixPlayerTwo)
-ask_size_matrix_player_2.place(relx=0.1, rely=0.2)
+ask_size_matrix_player_2.place(relx=0.7, rely=0.2)
 
 ask_size_matrix_player_1 = tk.Button(
 play_frame, font=font_small, text='Ingresar datos jugador 1', command=insertMatrixPlayerOne)
-ask_size_matrix_player_1.place(relx=0.7, rely=0.2)
+ask_size_matrix_player_1.place(relx=0.1, rely=0.2)
+
+x_coord_entry=tk.Entry(play_frame)
+x_coord_entry["borderwidth"] = "1px"
+ft = tkFont.Font(family='Times',size=10)
+x_coord_entry["font"] = ft
+x_coord_entry["fg"] = "#333333"
+x_coord_entry["justify"] = "center"
+x_coord_entry.place(x=240,y=700,width=58,height=30)
+
+x_coord_lbl=tk.Label(play_frame)
+ft = tkFont.Font(family='Times',size=13)
+x_coord_lbl["font"] = ft
+x_coord_lbl["fg"] = "#333333"
+x_coord_lbl["justify"] = "center"
+x_coord_lbl["text"] = "X"
+x_coord_lbl.place(x=210,y=700,width=30,height=30)
+
+y_coord_lbl=tk.Label(play_frame)
+ft = tkFont.Font(family='Times',size=13)
+y_coord_lbl["font"] = ft
+y_coord_lbl["fg"] = "#333333"
+y_coord_lbl["justify"] = "center"
+y_coord_lbl["text"] = "Y"
+y_coord_lbl.place(x=450,y=700,width=30,height=30)
+
+y_coord_entry=tk.Entry(play_frame)
+y_coord_entry["borderwidth"] = "1px"
+ft = tkFont.Font(family='Times',size=10)
+y_coord_entry["font"] = ft
+y_coord_entry["fg"] = "#333333"
+y_coord_entry["justify"] = "center"
+
+y_coord_entry.place(x=480,y=700,width=57,height=30)
+
+get_coord_p1=tk.Button(play_frame)
+get_coord_p1["bg"] = "#f0f0f0"
+ft = tkFont.Font(family='Times',size=10)
+get_coord_p1["font"] = ft
+get_coord_p1["fg"] = "#000000"
+get_coord_p1["justify"] = "center"
+get_coord_p1["text"] = "Disparar"
+get_coord_p1.place(x=350,y=750,width=70,height=25)
+get_coord_p1["command"] = getShotsFromP1
+
+#widgets player2
+x_coord_lbl_2=tk.Label(play_frame)
+ft = tkFont.Font(family='Times',size=13)
+x_coord_lbl_2["font"] = ft
+x_coord_lbl_2["fg"] = "#333333"
+x_coord_lbl_2["justify"] = "center"
+x_coord_lbl_2["text"] = "X"
+x_coord_lbl_2.place(x=980,y=700,width=30,height=30)
+
+x_coord_entry_2=tk.Entry(play_frame)
+x_coord_entry_2["borderwidth"] = "1px"
+ft = tkFont.Font(family='Times',size=10)
+x_coord_entry_2["font"] = ft
+x_coord_entry_2["fg"] = "#333333"
+x_coord_entry_2["justify"] = "center"
+
+x_coord_entry_2.place(x=1010,y=700,width=57,height=30)
+
+y_coord_lbl_2=tk.Label(play_frame)
+ft = tkFont.Font(family='Times',size=13)
+y_coord_lbl_2["font"] = ft
+y_coord_lbl_2["fg"] = "#333333"
+y_coord_lbl_2["justify"] = "center"
+y_coord_lbl_2["text"] = "Y"
+y_coord_lbl_2.place(x=1220,y=700,width=30,height=30)
+
+y_coord_entry_2=tk.Entry(play_frame)
+y_coord_entry_2["borderwidth"] = "1px"
+ft = tkFont.Font(family='Times',size=10)
+y_coord_entry_2["font"] = ft
+y_coord_entry_2["fg"] = "#333333"
+y_coord_entry_2["justify"] = "center"
+
+y_coord_entry_2.place(x=1250,y=700,width=57,height=30)
+
+
+get_coord_p2=tk.Button(play_frame)
+get_coord_p2["bg"] = "#f0f0f0"
+ft = tkFont.Font(family='Times',size=10)
+get_coord_p2["font"] = ft
+get_coord_p2["fg"] = "#000000"
+get_coord_p2["justify"] = "center"
+get_coord_p2["text"] = "Disparar"
+get_coord_p2.place(x=1120,y=750,width=70,height=25)
+get_coord_p2["command"] = getShotsFromP2
+
+returnMenu=tk.Button(play_frame)
+returnMenu["bg"] = "#f0f0f0"
+ft = tkFont.Font(family='Times',size=10)
+returnMenu["font"] = ft
+returnMenu["fg"] = "#000000"
+returnMenu["justify"] = "center"
+returnMenu["text"] = "Finalizar"
+returnMenu.place(x=1400,y=30,width=70,height=25)
+returnMenu["command"] = change_to_user
+
+
+
 
 # show_return_usuario = tk.Button(
 #     tienda_frame, font=font_small, text='Regresar al usuario', command=change_to_user)
