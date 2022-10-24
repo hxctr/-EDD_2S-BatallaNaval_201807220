@@ -1,0 +1,3 @@
+swig -python -c++ AuxList.i
+g++ -c -fpic AuxList_wrap.cxx -I/usr/include/python3.8
+g++ -shared AuxList_wrap.o -o _AuxList.so
