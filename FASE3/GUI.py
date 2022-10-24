@@ -34,16 +34,17 @@ def insertMatrixPlayerOne():
     matriz_size_player_1 = simpledialog.askstring("Ingrese el tamaño de su matriz: ", 'Jugador 1', parent=root)
     matriz_size_player_1 = int(matriz_size_player_1)
     print('pressed button to fill matrix')
-    matriz = MatrizDispersa(0)
+    global matriz1
+    matriz1 = MatrizDispersa(0)
     if matriz_size_player_1 is not None:
         
         if matriz_size_player_1 >= 11 and matriz_size_player_1 <= 20:
-            firstFill(matriz_size_player_1, matriz)
-            matriz.graficarNeato("jugador_1")
+            firstFill(matriz_size_player_1, matriz1)
+            matriz1.graficarNeato("jugador_1")
             setMatrixOne()
         elif matriz_size_player_1 >= 21 and matriz_size_player_1 <= 30:
-            secondFill(matriz_size_player_1, matriz)
-            matriz.graficarNeato("jugador_1")
+            secondFill(matriz_size_player_1, matriz1)
+            matriz1.graficarNeato("jugador_1")
 
 def setMatrixOne():
     
@@ -56,14 +57,15 @@ def setMatrixOne():
     #Si recarga solo si quitar esto, sino si agregarlo
     
     zoom = 1.8
+    global img_frame_1
+    img_frame_1 = tk.Frame(play_frame, height=400, width=600, borderwidth=1, bg="RED")
+    img_frame_1.place(relx=0.05, rely=0.3)
     
-    img_frame = tk.Frame(play_frame, height=400, width=600, borderwidth=1, bg="RED")
-    img_frame.place(relx=0.05, rely=0.3)
     
-    canvas = tk.Canvas(img_frame, height=400, width=600, relief=tk.SUNKEN)
+    canvas = tk.Canvas(img_frame_1, height=400, width=600, relief=tk.SUNKEN)
     
-    sbarV = tk.Scrollbar(img_frame, orient=tk.VERTICAL, command=canvas.yview)    
-    sbarH = tk.Scrollbar(img_frame, orient=tk.HORIZONTAL, command=canvas.xview)  
+    sbarV = tk.Scrollbar(img_frame_1, orient=tk.VERTICAL, command=canvas.yview)    
+    sbarH = tk.Scrollbar(img_frame_1, orient=tk.HORIZONTAL, command=canvas.xview)  
     sbarV.pack(side=tk.RIGHT, fill=tk.Y)
     sbarH.pack(side=tk.BOTTOM, fill=tk.X)
     
@@ -76,8 +78,8 @@ def setMatrixOne():
     canvas.config(scrollregion=(0,0, width, height))
     img2 = ImageTk.PhotoImage(imagencita)
     imagesprite = canvas.create_image(0,0,anchor = "nw", image=img2)
-    img_frame.image =  img2
-    img_frame.img2 = img2
+    img_frame_1.image =  img2
+    img_frame_1.img2 = img2
     
     # matriz1, matriz2 = tuple([int(zoom * x) for x in imagencita.size])
     # btree_img = ImageTk.PhotoImage(imagencita.resize((400, 400)))
@@ -88,19 +90,74 @@ def setMatrixOne():
     # lbl_btree_img.image = btree_img
     # lbl_btree_img.btree_img = btree_img
     # lbl_btree_img.place(x=40, y=240)
+def putBoardOneAgain():
+    img_frame_1 = tk.Frame(play_frame, height=400, width=600, borderwidth=1, bg="RED")
+    img_frame_1.place(relx=0.05, rely=0.3)
+    
+    
+    canvas = tk.Canvas(img_frame_1, height=400, width=600, relief=tk.SUNKEN)
+    
+    sbarV = tk.Scrollbar(img_frame_1, orient=tk.VERTICAL, command=canvas.yview)    
+    sbarH = tk.Scrollbar(img_frame_1, orient=tk.HORIZONTAL, command=canvas.xview)  
+    sbarV.pack(side=tk.RIGHT, fill=tk.Y)
+    sbarH.pack(side=tk.BOTTOM, fill=tk.X)
+    
+    canvas.config(yscrollcommand=sbarV.set)
+    canvas.config(xscrollcommand=sbarH.set)
+    canvas.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
+    
+    imagencita = Image.open('./Graphviz/matriz_jugador_1.png')
+    width, height = imagencita.size
+    canvas.config(scrollregion=(0,0, width, height))
+    img2 = ImageTk.PhotoImage(imagencita)
+    imagesprite = canvas.create_image(0,0,anchor = "nw", image=img2)
+    img_frame_1.image =  img2
+    img_frame_1.img2 = img2
 
 def getShotsFromP1():
     xcoor1 = int(x_coord_entry.get())
     ycoor1 = int(y_coord_entry.get())
     x_coord_entry.delete(0, 'end')
     y_coord_entry.delete(0, 'end')
+    matriz1.insert(xcoor1, ycoor1, 'X')
+    matriz1.graficarNeato("jugador_1")
+    img_frame_1.place_forget()
+    putBoardOneAgain()
     print(xcoor1, ycoor1)
+
+def putBoardTwoAgain():
+    img_frame_2 = tk.Frame(play_frame, height=400, width=600, borderwidth=1, bg="RED")
+    img_frame_2.place(relx=0.55, rely=0.3)
+    
+    canvas = tk.Canvas(img_frame_2, height=400, width=600, relief=tk.SUNKEN)
+    
+    sbarV = tk.Scrollbar(img_frame_2, orient=tk.VERTICAL, command=canvas.yview)    
+    sbarH = tk.Scrollbar(img_frame_2, orient=tk.HORIZONTAL, command=canvas.xview)  
+    sbarV.pack(side=tk.RIGHT, fill=tk.Y)
+    sbarH.pack(side=tk.BOTTOM, fill=tk.X)
+    
+    canvas.config(yscrollcommand=sbarV.set)
+    canvas.config(xscrollcommand=sbarH.set)
+    canvas.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
+    
+    imagencita = Image.open('./Graphviz/matriz_jugador_2.png')
+    width, height = imagencita.size
+    canvas.config(scrollregion=(0,0, width, height))
+    img2 = ImageTk.PhotoImage(imagencita)
+    imagesprite = canvas.create_image(0,0,anchor = "nw", image=img2)
+    img_frame_2.image =  img2
+    img_frame_2.img2 = img2
+    
 
 def getShotsFromP2():
     xcoor2 = int(x_coord_entry_2.get())
     ycoor2 = int(y_coord_entry_2.get())
     x_coord_entry_2.delete(0, 'end')
     y_coord_entry_2.delete(0, 'end')
+    matriz2.insert(xcoor2, ycoor2, 'X')
+    matriz2.graficarNeato("jugador_2")
+    img_frame_2.place_forget()
+    putBoardTwoAgain()
     print(xcoor2, ycoor2)
 
 
@@ -116,13 +173,14 @@ def setMatrixTwo():
     
     zoom = 1.8
     
-    img_frame = tk.Frame(play_frame, height=400, width=600, borderwidth=1, bg="RED")
-    img_frame.place(relx=0.55, rely=0.3)
+    global img_frame_2
+    img_frame_2 = tk.Frame(play_frame, height=400, width=600, borderwidth=1, bg="RED")
+    img_frame_2.place(relx=0.55, rely=0.3)
     
-    canvas = tk.Canvas(img_frame, height=400, width=600, relief=tk.SUNKEN)
+    canvas = tk.Canvas(img_frame_2, height=400, width=600, relief=tk.SUNKEN)
     
-    sbarV = tk.Scrollbar(img_frame, orient=tk.VERTICAL, command=canvas.yview)    
-    sbarH = tk.Scrollbar(img_frame, orient=tk.HORIZONTAL, command=canvas.xview)  
+    sbarV = tk.Scrollbar(img_frame_2, orient=tk.VERTICAL, command=canvas.yview)    
+    sbarH = tk.Scrollbar(img_frame_2, orient=tk.HORIZONTAL, command=canvas.xview)  
     sbarV.pack(side=tk.RIGHT, fill=tk.Y)
     sbarH.pack(side=tk.BOTTOM, fill=tk.X)
     
@@ -135,8 +193,8 @@ def setMatrixTwo():
     canvas.config(scrollregion=(0,0, width, height))
     img2 = ImageTk.PhotoImage(imagencita)
     imagesprite = canvas.create_image(0,0,anchor = "nw", image=img2)
-    img_frame.image =  img2
-    img_frame.img2 = img2
+    img_frame_2.image =  img2
+    img_frame_2.img2 = img2
     print('si pasa aqui')
     
     # matriz1, matriz2 = tuple([int(zoom * x) for x in imagencita.size])
@@ -152,19 +210,20 @@ def setMatrixTwo():
     
 
 def insertMatrixPlayerTwo():
-    matriz_size_player_2 = simpledialog.askstring("Ingrese el tamaño de su matriz: ", 'Jugador 1', parent=root)
+    matriz_size_player_2 = simpledialog.askstring("Ingrese el tamaño de su matriz2: ", 'Jugador 1', parent=root)
     matriz_size_player_2 = int(matriz_size_player_2)
     print('pressed button to fill matrix')
-    matriz = MatrizDispersa(1)
+    global matriz2
+    matriz2 = MatrizDispersa(1)
     if matriz_size_player_2 is not None:
         
         if matriz_size_player_2 >= 11 and matriz_size_player_2 <= 20:
-            firstFill(matriz_size_player_2, matriz)
-            matriz.graficarNeato("jugador_2")
+            firstFill(matriz_size_player_2, matriz2)
+            matriz2.graficarNeato("jugador_2")
             setMatrixTwo()
         elif matriz_size_player_2 >= 21 and matriz_size_player_2 <= 30:
-            secondFill(matriz_size_player_2, matriz)
-            matriz.graficarNeato("_jugador_2")
+            secondFill(matriz_size_player_2, matriz2)
+            matriz2.graficarNeato("_jugador_2")
             
 
 #to fill matrix
