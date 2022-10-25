@@ -1,7 +1,8 @@
 from ast import If
 
 from json import load
-from tkinter import Label, PhotoImage, ttk, simpledialog, Canvas
+from re import X
+from tkinter import Label, PhotoImage, ttk, simpledialog, Canvas, messagebox
 import tkinter as tk
 import tkinter.font as tkFont
 from unicodedata import category
@@ -15,12 +16,16 @@ import btree
 import Users
 import items
 import ALVTree
+from auxList import AuxList
+
 
 
 btree_object = btree.ArbolB()
 users_object = Users.UsersList()
 list_items = Users.ItemsList()
 items_object = items.ListaArticulos()
+
+
 from MatrizDispersa import MatrizDispersa
 
 
@@ -35,11 +40,13 @@ def insertMatrixPlayerOne():
     matriz_size_player_1 = int(matriz_size_player_1)
     print('pressed button to fill matrix')
     global matriz1
+    global auxlist1
+    auxlist1 = AuxList.AuxList()
     matriz1 = MatrizDispersa(0)
     if matriz_size_player_1 is not None:
         
         if matriz_size_player_1 >= 11 and matriz_size_player_1 <= 20:
-            firstFill(matriz_size_player_1, matriz1)
+            firstFill(matriz_size_player_1, matriz1, auxlist1)
             matriz1.graficarNeato("jugador_1")
             setMatrixOne()
         elif matriz_size_player_1 >= 21 and matriz_size_player_1 <= 30:
@@ -120,10 +127,20 @@ def getShotsFromP1():
     x_coord_entry.delete(0, 'end')
     y_coord_entry.delete(0, 'end')
     matriz1.insert(xcoor1, ycoor1, 'X')
+    accurate_shot = auxlist1.seachPos(xcoor1, ycoor1)
+    if accurate_shot == 1:
+        messagebox.showinfo("Jugador 1", "Disparo acertado en ("+str(xcoor1)+", "+str(ycoor1)+")")
+        auxlist1.deleteByGivenInfo(xcoor1, ycoor1)
+        if auxlist1.getSize() == 0:
+            messagebox.showinfo("Jugador 1", "¡Felicidades, jugador 1 es el ganador!")
+        print('tiro acertado')
+        
+        
     matriz1.graficarNeato("jugador_1")
     img_frame_1.place_forget()
     putBoardOneAgain()
     print(xcoor1, ycoor1)
+    auxlist1.display()
 
 def putBoardTwoAgain():
     img_frame_2 = tk.Frame(play_frame, height=400, width=600, borderwidth=1, bg="RED")
@@ -227,7 +244,7 @@ def insertMatrixPlayerTwo():
             
 
 #to fill matrix
-def firstFill(tamaño, matriz):#11<= m <= 20
+def firstFill(tamaño, matriz, auxlist):#11<= m <= 20
     #insertar portaaviones
     top1 = 9
     exceptions = (4,)
@@ -235,6 +252,7 @@ def firstFill(tamaño, matriz):#11<= m <= 20
         if index not in exceptions:
             # print(index)#insert portaaviones
             matriz.insert(0, index, "P")
+            auxlist.insert(0, index)
     
     #submarinos
     print("submarinos")
@@ -244,8 +262,11 @@ def firstFill(tamaño, matriz):#11<= m <= 20
         if index not in except2:
             # print(index)#insert portaaviones
             matriz.insert(int(tamaño / 4), index, "S")
+            auxlist.insert(int(tamaño / 4), index)
             matriz.insert(1 + int(tamaño / 4), index, "S")
+            auxlist.insert(1 + int(tamaño / 4), index)
             matriz.insert(2 + int(tamaño / 4), index, "S")
+            auxlist.insert(2 + int(tamaño / 4), index)
     
     print("Destructores")
     top3 = 11
@@ -254,7 +275,9 @@ def firstFill(tamaño, matriz):#11<= m <= 20
         if index not in except3:
             # print(index)#insert portaaviones
             matriz.insert(int((tamaño / 4)*2), index, "D")
+            auxlist.insert(int((tamaño / 4)*2), index)
             matriz.insert(1+int((tamaño / 4)*2), index, "D")
+            auxlist.insert(1+int((tamaño / 4)*2), index)
 
     print("buques")
     top4 = 13
@@ -263,6 +286,7 @@ def firstFill(tamaño, matriz):#11<= m <= 20
         if index not in except4:
             # print(index)#insert portaaviones
             matriz.insert(int((tamaño / 4)*3), index, "B")
+            auxlist.insert(int((tamaño / 4)*3), index)
 
 def secondFill(tamaño, matriz):#21<= m <= 30
     #insertar portaaviones
