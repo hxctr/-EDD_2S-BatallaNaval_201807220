@@ -133,13 +133,14 @@ def getShotsFromP1():
         auxlist1.deleteByGivenInfo(xcoor1, ycoor1)
         if auxlist1.getSize() == 0:
             messagebox.showinfo("Jugador 1", "¡Felicidades, jugador 1 es el ganador!")
-        print('tiro acertado')
+        print('tiro acertado p1')
         
         
     matriz1.graficarNeato("jugador_1")
     img_frame_1.place_forget()
     putBoardOneAgain()
     print(xcoor1, ycoor1)
+    print("Player 1")
     auxlist1.display()
 
 def putBoardTwoAgain():
@@ -172,10 +173,21 @@ def getShotsFromP2():
     x_coord_entry_2.delete(0, 'end')
     y_coord_entry_2.delete(0, 'end')
     matriz2.insert(xcoor2, ycoor2, 'X')
+    accurate_shot = auxlist2.seachPos(xcoor2, ycoor2)
+    if accurate_shot == 1:
+        messagebox.showinfo("Jugador 2", "Disparo acertado en ("+str(xcoor2)+", "+str(ycoor2)+")")
+        auxlist2.deleteByGivenInfo(xcoor2, ycoor2)
+        if auxlist2.getSize() == 0:
+            messagebox.showinfo("Jugador 2", "¡Felicidades, jugador 2 es el ganador!")
+        print('tiro acertado p2')
+    
+    
     matriz2.graficarNeato("jugador_2")
     img_frame_2.place_forget()
     putBoardTwoAgain()
     print(xcoor2, ycoor2)
+    print("Player 2")
+    auxlist2.display()
 
 
 def setMatrixTwo():
@@ -231,11 +243,15 @@ def insertMatrixPlayerTwo():
     matriz_size_player_2 = int(matriz_size_player_2)
     print('pressed button to fill matrix')
     global matriz2
+    global auxlist2
+    auxlist2= AuxList.AuxList()
     matriz2 = MatrizDispersa(1)
+    
+    
     if matriz_size_player_2 is not None:
         
         if matriz_size_player_2 >= 11 and matriz_size_player_2 <= 20:
-            firstFill(matriz_size_player_2, matriz2)
+            firstFill(matriz_size_player_2, matriz2, auxlist2)
             matriz2.graficarNeato("jugador_2")
             setMatrixTwo()
         elif matriz_size_player_2 >= 21 and matriz_size_player_2 <= 30:

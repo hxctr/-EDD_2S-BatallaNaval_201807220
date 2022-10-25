@@ -2660,9 +2660,8 @@ SWIGINTERN PyObject *SWIG_PyStaticMethod_New(PyObject *SWIGUNUSEDPARM(self), PyO
 #define SWIGTYPE_p_AuxList swig_types[0]
 #define SWIGTYPE_p_Node swig_types[1]
 #define SWIGTYPE_p_char swig_types[2]
-#define SWIGTYPE_p_p_char swig_types[3]
-static swig_type_info *swig_types[5];
-static swig_module_info swig_module = {swig_types, 4, 0, 0, 0, 0};
+static swig_type_info *swig_types[4];
+static swig_module_info swig_module = {swig_types, 3, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -3511,36 +3510,6 @@ SWIGINTERN PyObject *AuxList_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *
   return SWIG_Python_InitShadowInstance(args);
 }
 
-SWIGINTERN PyObject *_wrap_main(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  int arg1 ;
-  char **arg2 ;
-  int val1 ;
-  int ecode1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  int result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "main", 2, 2, swig_obj)) SWIG_fail;
-  ecode1 = SWIG_AsVal_int(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "main" "', argument " "1"" of type '" "int""'");
-  } 
-  arg1 = static_cast< int >(val1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_p_char, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "main" "', argument " "2"" of type '" "char const *[]""'"); 
-  } 
-  arg2 = reinterpret_cast< char ** >(argp2);
-  result = (int)main(arg1,(char const *(*))arg2);
-  resultobj = SWIG_From_int(static_cast< int >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 static PyMethodDef SwigMethods[] = {
 	 { "SWIG_PyInstanceMethod_New", SWIG_PyInstanceMethod_New, METH_O, NULL},
 	 { "Node_x_set", _wrap_Node_x_set, METH_VARARGS, NULL},
@@ -3568,7 +3537,6 @@ static PyMethodDef SwigMethods[] = {
 	 { "delete_AuxList", _wrap_delete_AuxList, METH_O, NULL},
 	 { "AuxList_swigregister", AuxList_swigregister, METH_O, NULL},
 	 { "AuxList_swiginit", AuxList_swiginit, METH_VARARGS, NULL},
-	 { "main", _wrap_main, METH_VARARGS, NULL},
 	 { NULL, NULL, 0, NULL }
 };
 
@@ -3582,25 +3550,21 @@ static PyMethodDef SwigMethods_proxydocs[] = {
 static swig_type_info _swigt__p_AuxList = {"_p_AuxList", "AuxList *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Node = {"_p_Node", "Node *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_p_char = {"_p_p_char", "char **", 0, 0, (void*)0, 0};
 
 static swig_type_info *swig_type_initial[] = {
   &_swigt__p_AuxList,
   &_swigt__p_Node,
   &_swigt__p_char,
-  &_swigt__p_p_char,
 };
 
 static swig_cast_info _swigc__p_AuxList[] = {  {&_swigt__p_AuxList, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Node[] = {  {&_swigt__p_Node, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_p_char[] = {  {&_swigt__p_p_char, 0, 0, 0},{0, 0, 0, 0}};
 
 static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_AuxList,
   _swigc__p_Node,
   _swigc__p_char,
-  _swigc__p_p_char,
 };
 
 

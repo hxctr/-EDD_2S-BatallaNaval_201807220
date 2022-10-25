@@ -110,7 +110,4 @@ class AuxList(object):
 _AuxList.AuxList_swigregister(AuxList)
 
 
-def main(argc, argv):
-    return _AuxList.main(argc, argv)
-
 

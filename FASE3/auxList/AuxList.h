@@ -100,46 +100,28 @@ public:
 
     void deleteByGivenInfo(int x, int y)
     {
-        Node *temp = this->start;
+        Node *temp = start;
         Node *prev = nullptr;
 
-        if (temp != nullptr && temp->x == x && temp->y == y)
+        while ( temp != nullptr && ((temp->x != x) || (temp->y != y)) )
         {
-            this->start = temp->next;
-            delete temp;
-            this->size--;
-            return;
+            prev = temp;
+            temp = temp->next;
         }
-        else
+
+        if (temp != nullptr)
         {
-            while (temp != nullptr && temp->x != x && temp->y != y)
+            if (prev == nullptr)
             {
-                prev = temp;
-                temp = temp->next;
+               start = temp->next;
             }
-            if (temp == nullptr)
+            else
             {
-                return;
+                prev->next = temp->next;
             }
-            prev->next = temp->next;
-            this->size--;
+            size--;
             delete temp;
         }
     }
 };
 
-int main(int argc, char const *argv[])
-{
-    AuxList lk;
-    lk.insert(4, 5);
-    lk.insert(2, 3);
-    lk.insert(7, 7);
-    lk.insert(9, 2);
-    lk.display();
-    cout<<boolalpha<<lk.seachPos(2,3);
-    lk.display();
-    int hola = lk.getSize();
-    cout<<hola;
-
-    return 0;
-}
