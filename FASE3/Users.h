@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include "sha256.h"
+#define NOT_FOUND -1
 using namespace std;
 
 class ItemNode
@@ -16,7 +17,7 @@ public:
     ItemNode *next;
 
     ItemNode(int id
-    // , string categoria, int precio, string nombre, string src)
+             // , string categoria, int precio, string nombre, string src)
     )
     {
         this->id = id;
@@ -55,11 +56,11 @@ public:
     }
 
     void insertInfo(int id
-    // , string categoria, int precio, string nombre, string src
+                    // , string categoria, int precio, string nombre, string src
     )
     {
         ItemNode *node = new ItemNode(id
-        // , categoria, precio, nombre, src
+                                      // , categoria, precio, nombre, src
         );
         if (this->start == nullptr)
         {
@@ -82,7 +83,7 @@ public:
         while (temp != nullptr)
         {
             // cout << to_string(temp->id) + ", " + temp->categoria + ", " + to_string(temp->precio) + ", " + temp->nombre + ", " + temp->src << endl;
-            cout << temp->id<< endl;
+            cout << temp->id << endl;
             temp = temp->next;
         }
     }
@@ -116,35 +117,40 @@ public:
         this->next = nullptr;
     }
 
-    void setLinkedList(ItemsList newlist){
+    void setLinkedList(ItemsList newlist)
+    {
         this->linked_list = newlist;
     }
 
-    void setId(int id){
+    void setId(int id)
+    {
         this->id = id;
     }
 
-    void setNick(string nick){
+    void setNick(string nick)
+    {
         this->nick = nick;
     }
 
-    void setPassword(string password){
+    void setPassword(string password)
+    {
         this->password = password;
     }
 
-    void setMonedas(int monedas){
+    void setMonedas(int monedas)
+    {
         this->monedas = monedas;
     }
 
-    int getMonedas(){
+    int getMonedas()
+    {
         return this->monedas;
     }
 
-    void setEdad(int edad){
+    void setEdad(int edad)
+    {
         this->edad = edad;
     }
-
-
 };
 
 class UsersList
@@ -175,17 +181,18 @@ public:
         }
     }
 
-    void _print(){
+    void _print()
+    {
         UsersNode *temp = this->start;
         while (temp != nullptr)
         {
-            cout << "Nick: " + temp->nick + ", Id: " + to_string(temp->id) + "\n";
+            cout << "Nick: " + temp->nick + ", Id: " + to_string(temp->id) + ", Monedas: " + to_string(temp->monedas) + "\n";
             temp = temp->next;
         }
-        
     }
 
-    void setNewLinkedList(string nick, ItemsList newlist){
+    void setNewLinkedList(string nick, ItemsList newlist)
+    {
         UsersNode *temp = this->start;
         while (temp != nullptr)
         {
@@ -195,10 +202,61 @@ public:
             }
             temp = temp->next;
         }
-        
     }
 
-    vector<int> sendIdsToPY(){
+    int tokensActuales(string nick)
+    {
+
+        UsersNode *temp = this->start;
+        while (temp != nullptr)
+        {
+            if (temp->nick == nick)
+            {
+                return temp->getMonedas();
+            }
+            temp = temp->next;
+        }
+        return NOT_FOUND;
+    }
+
+    void setNewTokensWhenWinner(string nick, int monedas)
+    {
+        UsersNode *temp = this->start;
+        while (temp != nullptr)
+        {
+            if (temp->nick == nick)
+            {
+                int monedas_actuales = temp->getMonedas();
+                temp->setMonedas(monedas_actuales + monedas);
+            }
+            temp = temp->next;
+        }
+    }
+
+    bool askSetNewTokensWhenBuying(string nick, int monedas)
+    {
+        UsersNode *temp = this->start;
+        while (temp != nullptr)
+        {
+            if (temp->nick == nick)
+            {
+                int monedas_actuales = temp->getMonedas();
+                if (monedas_actuales < monedas)
+                {
+                    return false;//can't buy the item
+                }
+                else if (monedas_actuales >= monedas)
+                {
+                    temp->setMonedas(monedas_actuales - monedas);//buyed item
+                }
+            }
+            temp = temp->next;
+        }
+        return true;//not found
+    }
+
+    vector<int> sendIdsToPY()
+    {
         UsersNode *temp = this->start;
         vector<int> idvec;
 
@@ -210,7 +268,8 @@ public:
         return idvec;
     }
 
-    vector<string> sendNicksToPY(){
+    vector<string> sendNicksToPY()
+    {
         UsersNode *temp = this->start;
         vector<string> nickvec;
 
@@ -222,7 +281,8 @@ public:
         return nickvec;
     }
 
-    vector<string> sendPasswordsToPY(){
+    vector<string> sendPasswordsToPY()
+    {
         UsersNode *temp = this->start;
         vector<string> passvec;
 
@@ -234,7 +294,8 @@ public:
         return passvec;
     }
 
-    vector<int> sendAgesToPY(){
+    vector<int> sendAgesToPY()
+    {
         UsersNode *temp = this->start;
         vector<int> agevec;
 
@@ -336,7 +397,7 @@ public:
                 for (ItemNode *p = temp->linked_list.get_start(); p != nullptr; p = p->next)
                 {
                     // cout << "- " << to_string(p->getId()) + ", " + p->getNombre() + ", " + to_string(p->getPrecio()) << endl;
-                    cout << p->getId()<< endl;
+                    cout << p->getId() << endl;
                 }
             }
             temp = temp->next;
@@ -366,7 +427,7 @@ public:
     {
         /*
         If this funcion returns a 1 it means it is admin user, so
-        swap interface to admin, if it is 2, it mean it is in 
+        swap interface to admin, if it is 2, it mean it is in
         user, so change GUI to user interface, else, if it is 0
         it means it didn´t find user, so then show a dialog message
         */
@@ -386,14 +447,14 @@ public:
                 }
                 tmp = tmp->next;
             }
-            
         }
 
         return 0;
     }
 
-    bool setNewData(string nick_to_search, string nick, string password, int edad){//I can pull nick from the user text fiel in GUI
-    //if return true, then it means data get changed, but if not, it will return false, it means data doesn´t change because user doesn´t exist
+    bool setNewData(string nick_to_search, string nick, string password, int edad)
+    { // I can pull nick from the user text fiel in GUI
+        // if return true, then it means data get changed, but if not, it will return false, it means data doesn´t change because user doesn´t exist
         UsersNode *temp = this->start;
         while (temp != nullptr)
         {
@@ -403,25 +464,26 @@ public:
                 temp->setPassword(password);
                 temp->setEdad(edad);
                 return true;
-
             }
             temp = temp->next;
         }
         return false;
     }
 
-    void deleteUser(int id){
+    void deleteUser(int id)
+    {
         UsersNode *temp = this->start;
-        UsersNode* prev = nullptr;
+        UsersNode *prev = nullptr;
 
-        if (temp!=nullptr && temp->id == id)
+        if (temp != nullptr && temp->id == id)
         {
             this->start = temp->next;
             delete temp;
             return;
-        }else
+        }
+        else
         {
-            while (temp != nullptr && temp->id!= id)
+            while (temp != nullptr && temp->id != id)
             {
                 prev = temp;
                 temp = temp->next;
@@ -431,7 +493,9 @@ public:
                 return;
             }
             prev->next = temp->next;
-            delete temp;     
-        } 
+            delete temp;
+        }
     }
 };
+
+
