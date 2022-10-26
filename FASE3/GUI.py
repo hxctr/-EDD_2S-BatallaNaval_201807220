@@ -37,16 +37,17 @@ def insertMatrixPlayerOne():
         
     
     global matriz_size_player_1    
-    matriz_size_player_1 = simpledialog.askstring("Ingrese el tamaño de su matriz: ", 'Jugador 1', parent=root)
+    matriz_size_player_1 = simpledialog.askstring('Jugador 1',"Ingrese el tamaño de su matriz: ", parent=root)
     matriz_size_player_1 = int(matriz_size_player_1)
     print('pressed button to fill matrix')
     global matriz1
     global auxlist1
     global graphlist1
-    global adjacentlist1
-    global adjacentlist2
-    adjacentlist1 = list()
-    adjacentlist2 = list()
+    global adjacentlist1_P1
+    global adjacentlist2_P1
+    
+    adjacentlist1_P1 = list()
+    adjacentlist2_P1 = list()
     auxlist1 = AuxList.AuxList()
     graphlist1 = AuxList.AuxList()
     matriz1 = MatrizDispersa(0)
@@ -62,35 +63,32 @@ def insertMatrixPlayerOne():
 
 def graph_adjacent_list_1():
     
-    adjacentlist1 = graphlist1.sendXsToPY()
-    adjacentlist2 = graphlist1.sendYsToPY()
+    adjacentlist1_P1 = graphlist1.sendXsToPY()
+    adjacentlist2_P1 = graphlist1.sendYsToPY()
     
     addHeaders = AdjacentList.VertexesList()
     for i in range(matriz_size_player_1):
         addHeaders.insert(str(i))
     
     
-    for i in range(0, len(adjacentlist1)):
+    for i in range(0, len(adjacentlist1_P1)):
         vertex = AdjacentList.Vertex()
-        vertex = addHeaders.search(adjacentlist1[i], addHeaders.top)
-        vertex.addEdge(adjacentlist1[i], adjacentlist2[i], 0)
+        vertex = addHeaders.search(adjacentlist1_P1[i], addHeaders.top)
+        vertex.addEdge( adjacentlist1_P1[i], adjacentlist2_P1[i], 0)
         addHeaders.insertEdge(addHeaders.top, vertex)
     
     undirectedGraph = addHeaders.getGraph()
-    archivo = open('./Graphviz/grafo.dot', 'w')
+    archivo = open('./Graphviz/grafo_P1.dot', 'w')
     archivo.write(undirectedGraph)
     archivo.close()
-    os.system("dot -Tpng ./Graphviz/grafo.dot -o ./Graphviz/grafo.png ")
+    os.system("dot -Tpng ./Graphviz/grafo_P1.dot -o ./Graphviz/grafo_P1.png ")
 
     graphAdjacentList = addHeaders.graphAdjacentList()
-    archivo = open('./Graphviz/lista_adyacente.dot', 'w')
+    archivo = open('./Graphviz/lista_adyacente_P1.dot', 'w')
     archivo.write(graphAdjacentList)
     archivo.close()
-    os.system("dot -Tpng ./Graphviz/lista_adyacente.dot -o ./Graphviz/lista_adyacente.png")
+    os.system("dot -Tpng ./Graphviz/lista_adyacente_P1.dot -o ./Graphviz/lista_adyacente_P1.png")
     
-    # print(len(adjacentlist1))
-    # for i in range(len(adjacentlist1)):
-    #     print(adjacentlist1[i], adjacentlist2[i])
     
     
     
@@ -215,6 +213,7 @@ def getShotsFromP2():
     x_coord_entry_2.delete(0, 'end')
     y_coord_entry_2.delete(0, 'end')
     matriz2.insert(xcoor2, ycoor2, 'X')
+    graphlist2.insert(xcoor2, ycoor2)
     accurate_shot = auxlist2.seachPos(xcoor2, ycoor2)
     if accurate_shot == 1:
         messagebox.showinfo("Jugador 2", "Disparo acertado en ("+str(xcoor2)+", "+str(ycoor2)+")")
@@ -281,14 +280,20 @@ def setMatrixTwo():
     
 
 def insertMatrixPlayerTwo():
-    matriz_size_player_2 = simpledialog.askstring("Ingrese el tamaño de su matriz2: ", 'Jugador 1', parent=root)
+    global matriz_size_player_2
+    matriz_size_player_2 = simpledialog.askstring('Jugador 2',"Ingrese el tamaño de su matriz: ", parent=root)
     matriz_size_player_2 = int(matriz_size_player_2)
     print('pressed button to fill matrix')
     global matriz2
     global auxlist2
     global graphlist2
-    auxlist2= AuxList.AuxList()
+    global adjacentlist1_P2
+    global adjacentlist2_P2
     
+    adjacentlist1_P2 = list()
+    adjacentlist2_P2 = list()
+    auxlist2= AuxList.AuxList()
+    graphlist2 = AuxList.AuxList()
     matriz2 = MatrizDispersa(1)
     
     
@@ -301,7 +306,34 @@ def insertMatrixPlayerTwo():
         elif matriz_size_player_2 >= 21 and matriz_size_player_2 <= 30:
             secondFill(matriz_size_player_2, matriz2)
             matriz2.graficarNeato("_jugador_2")
-            
+
+def graph_adjacent_list_2():
+    
+    adjacentlist1_P2 = graphlist2.sendXsToPY()
+    adjacentlist2_P2 = graphlist2.sendYsToPY()
+    
+    addHeaders = AdjacentList.VertexesList()
+    for i in range(matriz_size_player_2):
+        addHeaders.insert(str(i))
+    
+    
+    for i in range(0, len(adjacentlist1_P2)):
+        vertex = AdjacentList.Vertex()
+        vertex = addHeaders.search(adjacentlist1_P2[i], addHeaders.top)
+        vertex.addEdge(adjacentlist1_P2[i], adjacentlist2_P2[i], 0)
+        addHeaders.insertEdge(addHeaders.top, vertex)
+    
+    undirectedGraph = addHeaders.getGraph()
+    archivo = open('./Graphviz/grafo_P2.dot', 'w')
+    archivo.write(undirectedGraph)
+    archivo.close()
+    os.system("dot -Tpng ./Graphviz/grafo_P2.dot -o ./Graphviz/grafo_P2.png ")
+
+    graphAdjacentList = addHeaders.graphAdjacentList()
+    archivo = open('./Graphviz/lista_adyacente_P2.dot', 'w')
+    archivo.write(graphAdjacentList)
+    archivo.close()
+    os.system("dot -Tpng ./Graphviz/lista_adyacente_P2.dot -o ./Graphviz/lista_adyacente_P2.png")
 
 #to fill matrix
 def firstFill(tamaño, matriz, auxlist):#11<= m <= 20
@@ -1376,7 +1408,7 @@ returnMenu["fg"] = "#000000"
 returnMenu["justify"] = "center"
 returnMenu["text"] = "Finalizar"
 returnMenu.place(x=1400,y=30,width=70,height=25)
-returnMenu["command"] = graph_adjacent_list_1
+returnMenu["command"] = graph_adjacent_list_2
 # change_to_user
 
 
