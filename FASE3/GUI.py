@@ -1,8 +1,9 @@
 from ast import If
+from fileinput import close
 
 from json import load
 from re import X
-from tkinter import Label, PhotoImage, ttk, simpledialog, Canvas, messagebox
+from tkinter import Button, Label, PhotoImage, ttk, simpledialog, Canvas, messagebox
 import tkinter as tk
 import tkinter.font as tkFont
 from unicodedata import category
@@ -78,12 +79,14 @@ def graph_adjacent_list_1():
         addHeaders.insertEdge(addHeaders.top, vertex)
     
     undirectedGraph = addHeaders.getGraph()
+    undirectedGraph = undirectedGraph.replace("rankdir=LR;", 'rankdir=LR; label="Grafo Jugador 1" fontname="Arial Black" fontsize="25pt"' )
     archivo = open('./Graphviz/grafo_P1.dot', 'w')
     archivo.write(undirectedGraph)
     archivo.close()
     os.system("dot -Tpng ./Graphviz/grafo_P1.dot -o ./Graphviz/grafo_P1.png ")
 
     graphAdjacentList = addHeaders.graphAdjacentList()
+    graphAdjacentList = graphAdjacentList.replace("rankdir=LR", 'rankdir=LR; label="Lista Adyacente Jugador 1" fontname="Arial Black" fontsize="25pt"' )
     archivo = open('./Graphviz/lista_adyacente_P1.dot', 'w')
     archivo.write(graphAdjacentList)
     archivo.close()
@@ -173,6 +176,10 @@ def getShotsFromP1():
         auxlist1.deleteByGivenInfo(xcoor1, ycoor1)
         if auxlist1.getSize() == 0:
             messagebox.showinfo("Jugador 1", "¡Felicidades, jugador 1 es el ganador!")
+            global flag
+            flag = True
+            print('Bandera es true')
+            graph_adjacent_list_1()
         print('tiro acertado p1')
         
         
@@ -220,6 +227,10 @@ def getShotsFromP2():
         auxlist2.deleteByGivenInfo(xcoor2, ycoor2)
         if auxlist2.getSize() == 0:
             messagebox.showinfo("Jugador 2", "¡Felicidades, jugador 2 es el ganador!")
+            global flag
+            flag = False
+            print('Bandera es ',flag)
+            graph_adjacent_list_2()
         print('tiro acertado p2')
     
     
@@ -230,6 +241,109 @@ def getShotsFromP2():
     print("Player 2")
     auxlist2.display()
 
+def popup_statistics_winner():
+    popupwindow = tk.Toplevel()
+    popupwindow.geometry('1500x900')
+    popupwindow.title('Estadisticas')
+    
+    poplabel = tk.Label(popupwindow, text="Hello world")
+    poplabel.pack(fill='x', padx=50, pady=5)
+    
+    close_btn = tk.Button(popupwindow, text='Close', command=infostatistics)
+    close_btn.pack(fill='x')
+    
+    global img_graph#global if then I need to destroy it
+    img_graph = tk.Frame(popupwindow, height=600, width=600, borderwidth=1, bg="RED")
+    img_graph.place(relx=0.05, rely=0.15)
+    
+    canvas_graph = tk.Canvas(img_graph, height=600, width=600, relief=tk.SUNKEN)
+    
+    sbarV = tk.Scrollbar(img_graph, orient=tk.VERTICAL, command=canvas_graph.yview)    
+    sbarH = tk.Scrollbar(img_graph, orient=tk.HORIZONTAL, command=canvas_graph.xview)  
+    sbarV.pack(side=tk.RIGHT, fill=tk.Y)
+    sbarH.pack(side=tk.BOTTOM, fill=tk.X)
+    
+    canvas_graph.config(yscrollcommand=sbarV.set)
+    canvas_graph.config(xscrollcommand=sbarH.set)
+    canvas_graph.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
+    
+    print('flag in statistics is ',flag)
+    
+    #canvas for the adjacent list
+    #global if then I need to destroy it
+    img_adjacent = tk.Frame(popupwindow, height=600, width=600, borderwidth=1, bg="RED")
+    img_adjacent.place(relx=0.55, rely=0.1)
+    
+    canvas_adjacent = tk.Canvas(img_adjacent, height=600, width=600, relief=tk.SUNKEN)
+    
+    sbarV_adjacent = tk.Scrollbar(img_adjacent, orient=tk.VERTICAL, command=canvas_adjacent.yview)    
+    sbarH_adjacent = tk.Scrollbar(img_adjacent, orient=tk.HORIZONTAL, command=canvas_adjacent.xview)  
+    sbarV_adjacent.pack(side=tk.RIGHT, fill=tk.Y)
+    sbarH_adjacent.pack(side=tk.BOTTOM, fill=tk.X)
+    
+    canvas_adjacent.config(yscrollcommand=sbarV_adjacent.set)
+    canvas_adjacent.config(xscrollcommand=sbarH_adjacent.set)
+    canvas_adjacent.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
+    
+    
+    
+    
+    if flag is True:#player ones is the winner
+        
+        imagencita = Image.open('./Graphviz/grafo_P1.png')
+        width, height = imagencita.size
+        canvas_graph.config(scrollregion=(0,0, width, height))
+        img2 = ImageTk.PhotoImage(imagencita)
+        imagesprite = canvas_graph.create_image(0,0,anchor = "nw", image=img2)
+        img_graph.image =  img2
+        img_graph.img2 = img2
+        
+        grafoimagen = Image.open('./Graphviz/lista_adyacente_P1.png')
+        width, height = grafoimagen.size
+        canvas_adjacent.config(scrollregion=(0,0, width, height))
+        img3 = ImageTk.PhotoImage(grafoimagen)
+        imagegraph = canvas_adjacent.create_image(0,0,anchor = "nw", image=img3)
+        img_adjacent.image =  img3
+        img_adjacent.img3 = img3
+        
+    elif flag is False:
+        imagencita = Image.open('./Graphviz/grafo_P2.png')
+        width, height = imagencita.size
+        canvas_graph.config(scrollregion=(0,0, width, height))
+        img2 = ImageTk.PhotoImage(imagencita)
+        imagesprite = canvas_graph.create_image(0,0,anchor = "nw", image=img2)
+        img_graph.image =  img2
+        img_graph.img2 = img2
+        
+        grafoimagen = Image.open('./Graphviz/lista_adyacente_P2.png')
+        width, height = grafoimagen.size
+        canvas_adjacent.config(scrollregion=(0,0, width, height))
+        img3 = ImageTk.PhotoImage(grafoimagen)
+        imagegraph = canvas_adjacent.create_image(0,0,anchor = "nw", image=img3)
+        img_adjacent.image =  img3
+        img_adjacent.img3 = img3
+        
+def infostatistics():
+    
+    if flag is True:
+        B_m = int(((matriz_size_player_1-1)/10) +1 )
+        Portaaviones = B_m * 1;
+        Submarinos = B_m * 2;
+        Destructores = B_m * 3;
+        Buques = B_m * 4;
+        messagebox.showinfo("Estadisticas del usuario", "Nombre del ganador: "+str(entryUser)+ "\nTamaño tablero:"+str(matriz_size_player_1)+"\nPortaaviones destruidos: "+str(Portaaviones)+"\nSubmarinos destruidos: "+str(Submarinos)+"\nDestructores abatidos: "+str(Destructores)+"\nBuques abatidos: "+str(Buques))
+       
+    
+    
+    
+    
+        
+    
+    
+        
+        
+    
+    
 
 def setMatrixTwo():
     
@@ -243,7 +357,7 @@ def setMatrixTwo():
     
     zoom = 1.8
     
-    global img_frame_2
+    global img_frame_2#it is global for then destroy it
     img_frame_2 = tk.Frame(play_frame, height=400, width=600, borderwidth=1, bg="RED")
     img_frame_2.place(relx=0.55, rely=0.3)
     
@@ -324,12 +438,14 @@ def graph_adjacent_list_2():
         addHeaders.insertEdge(addHeaders.top, vertex)
     
     undirectedGraph = addHeaders.getGraph()
+    undirectedGraph = undirectedGraph.replace("rankdir=LR;", 'rankdir=LR; label="Grafo Jugador 2" fontname="Arial Black" fontsize="25pt"' )
     archivo = open('./Graphviz/grafo_P2.dot', 'w')
     archivo.write(undirectedGraph)
     archivo.close()
     os.system("dot -Tpng ./Graphviz/grafo_P2.dot -o ./Graphviz/grafo_P2.png ")
 
     graphAdjacentList = addHeaders.graphAdjacentList()
+    graphAdjacentList = graphAdjacentList.replace("rankdir=LR", 'rankdir=LR; label="Lista Adyacente Jugador 2" fontname="Arial Black" fontsize="25pt"' )
     archivo = open('./Graphviz/lista_adyacente_P2.dot', 'w')
     archivo.write(graphAdjacentList)
     archivo.close()
@@ -347,38 +463,38 @@ def firstFill(tamaño, matriz, auxlist):#11<= m <= 20
             auxlist.insert(0, index)
     
     #submarinos
-    print("submarinos")
-    top2 = 7
-    except2 = (1, 3, 5)
-    for index in range(top2):
-        if index not in except2:
-            # print(index)#insert portaaviones
-            matriz.insert(int(tamaño / 4), index, "S")
-            auxlist.insert(int(tamaño / 4), index)
-            matriz.insert(1 + int(tamaño / 4), index, "S")
-            auxlist.insert(1 + int(tamaño / 4), index)
-            matriz.insert(2 + int(tamaño / 4), index, "S")
-            auxlist.insert(2 + int(tamaño / 4), index)
+    # print("submarinos")
+    # top2 = 7
+    # except2 = (1, 3, 5)
+    # for index in range(top2):
+    #     if index not in except2:
+    #         # print(index)#insert portaaviones
+    #         matriz.insert(int(tamaño / 4), index, "S")
+    #         auxlist.insert(int(tamaño / 4), index)
+    #         matriz.insert(1 + int(tamaño / 4), index, "S")
+    #         auxlist.insert(1 + int(tamaño / 4), index)
+    #         matriz.insert(2 + int(tamaño / 4), index, "S")
+    #         auxlist.insert(2 + int(tamaño / 4), index)
     
-    print("Destructores")
-    top3 = 11
-    except3 = (1, 3, 5, 7, 9,)
-    for index in range(top3):
-        if index not in except3:
-            # print(index)#insert portaaviones
-            matriz.insert(int((tamaño / 4)*2), index, "D")
-            auxlist.insert(int((tamaño / 4)*2), index)
-            matriz.insert(1+int((tamaño / 4)*2), index, "D")
-            auxlist.insert(1+int((tamaño / 4)*2), index)
+    # print("Destructores")
+    # top3 = 11
+    # except3 = (1, 3, 5, 7, 9,)
+    # for index in range(top3):
+    #     if index not in except3:
+    #         # print(index)#insert portaaviones
+    #         matriz.insert(int((tamaño / 4)*2), index, "D")
+    #         auxlist.insert(int((tamaño / 4)*2), index)
+    #         matriz.insert(1+int((tamaño / 4)*2), index, "D")
+    #         auxlist.insert(1+int((tamaño / 4)*2), index)
 
-    print("buques")
-    top4 = 13
-    except4 = (3, 5, 7, 9, 11,)
-    for index in range(top4):
-        if index not in except4:
-            # print(index)#insert portaaviones
-            matriz.insert(int((tamaño / 4)*3), index, "B")
-            auxlist.insert(int((tamaño / 4)*3), index)
+    # print("buques")
+    # top4 = 13
+    # except4 = (3, 5, 7, 9, 11,)
+    # for index in range(top4):
+    #     if index not in except4:
+    #         # print(index)#insert portaaviones
+    #         matriz.insert(int((tamaño / 4)*3), index, "B")
+    #         auxlist.insert(int((tamaño / 4)*3), index) descomentar esto en un uso normal
 
 def secondFill(tamaño, matriz):#21<= m <= 30
     #insertar portaaviones
@@ -524,12 +640,17 @@ def loadUsers():
     
     
     
-# loadUsers()
+loadUsers()
     
 def login():
     
+    global entryUser
     entryUser = ety_user_login.get()
     entryPass = ety_pass_login.get()
+    print(entryUser)
+    
+    lbl_name_p1 = tk.Label(play_frame, text=str(entryUser))
+    lbl_name_p1.place(x = 30, y=40, width=79, height=30)
     
     user_state = users_object.logUser(entryUser, entryPass)
     
@@ -550,12 +671,13 @@ def getInUserTab():
         widget.destroy()
     
     lbl_heading_user = tk.Label(
-    user_frame, text='Bienvenido '+ety_user_login.get(), font=font_large)
+    user_frame, text='Bienvenido '+str(entryUser), font=font_large)
     lbl_heading_user.pack(pady=20)
     
     show_store = tk.Button(
     user_frame, font=font_small, text='Ir a la tienda', command= change_to_store)
     show_store.pack(pady=80)
+
 
 
 def buy_item(entry_item, aver):
@@ -1064,6 +1186,8 @@ def change_to_user():
     store_frame.forget()
     tienda_frame.forget()
     play_frame.forget()
+    global flag
+    flag = None#Boolean variable to show P1 if it changes to true, if not it means it is false, so show P2 statistics
     user_frame.pack(fill='both', expand=1)
     
     # getInUserTab()
@@ -1202,6 +1326,7 @@ def btn_log_login_command():
 
     entryuser = ety_user_login.get()
     entrypass = ety_pass_login.get()
+    print(entryuser)
 
     if entryuser == 'ADMIN' and entrypass =='123':
         print('si es admin')
@@ -1222,9 +1347,8 @@ btn_log_login["justify"] = "center"
 btn_log_login["text"] = "Ingresar"
 btn_log_login["relief"] = "raised"
 btn_log_login.place(x=230, y=360, width=151, height=34)
-btn_log_login["command"] = change_to_user 
-#login
-
+btn_log_login["command"] = login 
+#change_to_user
 # Command for log button
 
 
@@ -1256,9 +1380,12 @@ lbl_heading_store = tk.Label(
     store_frame, text='Tienda de articulos', font=font_large)
 lbl_heading_store.pack(pady=20)
 
+
+
 lbl_heading_user = tk.Label(
-user_frame, text='Bienvenido usuario'+ety_user_login.get(), font=font_large)
+user_frame, text='Bienvenido usuariodddd', font=font_large)
 lbl_heading_user.pack(pady=20)
+
 
 
 lbl_heading_playground = tk.Label(
@@ -1407,8 +1534,18 @@ returnMenu["font"] = ft
 returnMenu["fg"] = "#000000"
 returnMenu["justify"] = "center"
 returnMenu["text"] = "Finalizar"
-returnMenu.place(x=1400,y=30,width=70,height=25)
-returnMenu["command"] = graph_adjacent_list_2
+returnMenu.place(x=1340,y=30,width=70,height=25)
+returnMenu["command"] = change_to_user
+
+winnerStatistics=tk.Button(play_frame)
+winnerStatistics["bg"] = "#f0f0f0"
+ft = tkFont.Font(family='Times',size=10)
+winnerStatistics["font"] = ft
+winnerStatistics["fg"] = "#000000"
+winnerStatistics["justify"] = "center"
+winnerStatistics["text"] = "Estadisticas del ganador"
+winnerStatistics.place(x=1300,y=70,width=151,height=30)
+winnerStatistics["command"] = popup_statistics_winner
 # change_to_user
 
 
