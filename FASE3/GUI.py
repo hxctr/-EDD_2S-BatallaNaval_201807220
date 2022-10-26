@@ -17,6 +17,7 @@ import Users
 import items
 import ALVTree
 from auxList import AuxList
+from adjacentList import AdjacentList
 
 
 
@@ -35,13 +36,19 @@ def insertMatrixPlayerOne():
     #     widget.destroy()
         
     
-        
+    global matriz_size_player_1    
     matriz_size_player_1 = simpledialog.askstring("Ingrese el tamaño de su matriz: ", 'Jugador 1', parent=root)
     matriz_size_player_1 = int(matriz_size_player_1)
     print('pressed button to fill matrix')
     global matriz1
     global auxlist1
+    global graphlist1
+    global adjacentlist1
+    global adjacentlist2
+    adjacentlist1 = list()
+    adjacentlist2 = list()
     auxlist1 = AuxList.AuxList()
+    graphlist1 = AuxList.AuxList()
     matriz1 = MatrizDispersa(0)
     if matriz_size_player_1 is not None:
         
@@ -53,6 +60,40 @@ def insertMatrixPlayerOne():
             secondFill(matriz_size_player_1, matriz1)
             matriz1.graficarNeato("jugador_1")
 
+def graph_adjacent_list_1():
+    
+    adjacentlist1 = graphlist1.sendXsToPY()
+    adjacentlist2 = graphlist1.sendYsToPY()
+    
+    addHeaders = AdjacentList.VertexesList()
+    for i in range(matriz_size_player_1):
+        addHeaders.insert(str(i))
+    
+    
+    for i in range(0, len(adjacentlist1)):
+        vertex = AdjacentList.Vertex()
+        vertex = addHeaders.search(adjacentlist1[i], addHeaders.top)
+        vertex.addEdge(adjacentlist1[i], adjacentlist2[i], 0)
+        addHeaders.insertEdge(addHeaders.top, vertex)
+    
+    undirectedGraph = addHeaders.getGraph()
+    archivo = open('./Graphviz/grafo.dot', 'w')
+    archivo.write(undirectedGraph)
+    archivo.close()
+    os.system("dot -Tpng ./Graphviz/grafo.dot -o ./Graphviz/grafo.png ")
+
+    graphAdjacentList = addHeaders.graphAdjacentList()
+    archivo = open('./Graphviz/lista_adyacente.dot', 'w')
+    archivo.write(graphAdjacentList)
+    archivo.close()
+    os.system("dot -Tpng ./Graphviz/lista_adyacente.dot -o ./Graphviz/lista_adyacente.png")
+    
+    # print(len(adjacentlist1))
+    # for i in range(len(adjacentlist1)):
+    #     print(adjacentlist1[i], adjacentlist2[i])
+    
+    
+    
 def setMatrixOne():
     
     # for widget in play_frame.winfo_children():
@@ -127,6 +168,7 @@ def getShotsFromP1():
     x_coord_entry.delete(0, 'end')
     y_coord_entry.delete(0, 'end')
     matriz1.insert(xcoor1, ycoor1, 'X')
+    graphlist1.insert(xcoor1, ycoor1)
     accurate_shot = auxlist1.seachPos(xcoor1, ycoor1)
     if accurate_shot == 1:
         messagebox.showinfo("Jugador 1", "Disparo acertado en ("+str(xcoor1)+", "+str(ycoor1)+")")
@@ -244,7 +286,9 @@ def insertMatrixPlayerTwo():
     print('pressed button to fill matrix')
     global matriz2
     global auxlist2
+    global graphlist2
     auxlist2= AuxList.AuxList()
+    
     matriz2 = MatrizDispersa(1)
     
     
@@ -1332,7 +1376,8 @@ returnMenu["fg"] = "#000000"
 returnMenu["justify"] = "center"
 returnMenu["text"] = "Finalizar"
 returnMenu.place(x=1400,y=30,width=70,height=25)
-returnMenu["command"] = change_to_user
+returnMenu["command"] = graph_adjacent_list_1
+# change_to_user
 
 
 

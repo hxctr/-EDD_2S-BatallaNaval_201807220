@@ -1,0 +1,3 @@
+swig -python -c++ AdjacentList.i
+g++ -c -fpic AdjacentList_wrap.cxx -I/usr/include/python3.8
+g++ -shared AdjacentList_wrap.o -o _AdjacentList.so

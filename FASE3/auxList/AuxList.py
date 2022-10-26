@@ -61,6 +61,173 @@ class _SwigNonDynamicMeta(type):
     __setattr__ = _swig_setattr_nondynamic_class_variable(type.__setattr__)
 
 
+class SwigPyIterator(object):
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _AuxList.delete_SwigPyIterator
+
+    def value(self):
+        return _AuxList.SwigPyIterator_value(self)
+
+    def incr(self, n=1):
+        return _AuxList.SwigPyIterator_incr(self, n)
+
+    def decr(self, n=1):
+        return _AuxList.SwigPyIterator_decr(self, n)
+
+    def distance(self, x):
+        return _AuxList.SwigPyIterator_distance(self, x)
+
+    def equal(self, x):
+        return _AuxList.SwigPyIterator_equal(self, x)
+
+    def copy(self):
+        return _AuxList.SwigPyIterator_copy(self)
+
+    def next(self):
+        return _AuxList.SwigPyIterator_next(self)
+
+    def __next__(self):
+        return _AuxList.SwigPyIterator___next__(self)
+
+    def previous(self):
+        return _AuxList.SwigPyIterator_previous(self)
+
+    def advance(self, n):
+        return _AuxList.SwigPyIterator_advance(self, n)
+
+    def __eq__(self, x):
+        return _AuxList.SwigPyIterator___eq__(self, x)
+
+    def __ne__(self, x):
+        return _AuxList.SwigPyIterator___ne__(self, x)
+
+    def __iadd__(self, n):
+        return _AuxList.SwigPyIterator___iadd__(self, n)
+
+    def __isub__(self, n):
+        return _AuxList.SwigPyIterator___isub__(self, n)
+
+    def __add__(self, n):
+        return _AuxList.SwigPyIterator___add__(self, n)
+
+    def __sub__(self, *args):
+        return _AuxList.SwigPyIterator___sub__(self, *args)
+    def __iter__(self):
+        return self
+
+# Register SwigPyIterator in _AuxList:
+_AuxList.SwigPyIterator_swigregister(SwigPyIterator)
+
+class StringVector(object):
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def iterator(self):
+        return _AuxList.StringVector_iterator(self)
+    def __iter__(self):
+        return self.iterator()
+
+    def __nonzero__(self):
+        return _AuxList.StringVector___nonzero__(self)
+
+    def __bool__(self):
+        return _AuxList.StringVector___bool__(self)
+
+    def __len__(self):
+        return _AuxList.StringVector___len__(self)
+
+    def __getslice__(self, i, j):
+        return _AuxList.StringVector___getslice__(self, i, j)
+
+    def __setslice__(self, *args):
+        return _AuxList.StringVector___setslice__(self, *args)
+
+    def __delslice__(self, i, j):
+        return _AuxList.StringVector___delslice__(self, i, j)
+
+    def __delitem__(self, *args):
+        return _AuxList.StringVector___delitem__(self, *args)
+
+    def __getitem__(self, *args):
+        return _AuxList.StringVector___getitem__(self, *args)
+
+    def __setitem__(self, *args):
+        return _AuxList.StringVector___setitem__(self, *args)
+
+    def pop(self):
+        return _AuxList.StringVector_pop(self)
+
+    def append(self, x):
+        return _AuxList.StringVector_append(self, x)
+
+    def empty(self):
+        return _AuxList.StringVector_empty(self)
+
+    def size(self):
+        return _AuxList.StringVector_size(self)
+
+    def swap(self, v):
+        return _AuxList.StringVector_swap(self, v)
+
+    def begin(self):
+        return _AuxList.StringVector_begin(self)
+
+    def end(self):
+        return _AuxList.StringVector_end(self)
+
+    def rbegin(self):
+        return _AuxList.StringVector_rbegin(self)
+
+    def rend(self):
+        return _AuxList.StringVector_rend(self)
+
+    def clear(self):
+        return _AuxList.StringVector_clear(self)
+
+    def get_allocator(self):
+        return _AuxList.StringVector_get_allocator(self)
+
+    def pop_back(self):
+        return _AuxList.StringVector_pop_back(self)
+
+    def erase(self, *args):
+        return _AuxList.StringVector_erase(self, *args)
+
+    def __init__(self, *args):
+        _AuxList.StringVector_swiginit(self, _AuxList.new_StringVector(*args))
+
+    def push_back(self, x):
+        return _AuxList.StringVector_push_back(self, x)
+
+    def front(self):
+        return _AuxList.StringVector_front(self)
+
+    def back(self):
+        return _AuxList.StringVector_back(self)
+
+    def assign(self, n, x):
+        return _AuxList.StringVector_assign(self, n, x)
+
+    def resize(self, *args):
+        return _AuxList.StringVector_resize(self, *args)
+
+    def insert(self, *args):
+        return _AuxList.StringVector_insert(self, *args)
+
+    def reserve(self, n):
+        return _AuxList.StringVector_reserve(self, n)
+
+    def capacity(self):
+        return _AuxList.StringVector_capacity(self)
+    __swig_destroy__ = _AuxList.delete_StringVector
+
+# Register StringVector in _AuxList:
+_AuxList.StringVector_swigregister(StringVector)
+
 class Node(object):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -104,6 +271,12 @@ class AuxList(object):
 
     def deleteByGivenInfo(self, x, y):
         return _AuxList.AuxList_deleteByGivenInfo(self, x, y)
+
+    def sendXsToPY(self):
+        return _AuxList.AuxList_sendXsToPY(self)
+
+    def sendYsToPY(self):
+        return _AuxList.AuxList_sendYsToPY(self)
     __swig_destroy__ = _AuxList.delete_AuxList
 
 # Register AuxList in _AuxList:

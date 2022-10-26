@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 using namespace std;
 
 class Node
@@ -122,6 +123,30 @@ public:
             size--;
             delete temp;
         }
+    }
+
+    vector<string> sendXsToPY(){
+        Node *temp = this->start;
+        vector<string> xvec;
+
+        while (temp != nullptr)
+        {
+            xvec.push_back(to_string(temp->x));
+            temp = temp->next;
+        }
+        return xvec;
+    }
+
+    vector<string> sendYsToPY(){
+        Node *temp = this->start;
+        vector<string> yvec;
+
+        while (temp != nullptr)
+        {
+            yvec.push_back(to_string(temp->y));
+            temp = temp->next;
+        }
+        return yvec;
     }
 };
 
