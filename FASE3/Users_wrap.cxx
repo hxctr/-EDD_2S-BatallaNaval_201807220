@@ -10301,6 +10301,43 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_UsersNode_setLinkedList(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  UsersNode *arg1 = (UsersNode *) 0 ;
+  ItemsList arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "UsersNode_setLinkedList", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_UsersNode, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "UsersNode_setLinkedList" "', argument " "1"" of type '" "UsersNode *""'"); 
+  }
+  arg1 = reinterpret_cast< UsersNode * >(argp1);
+  {
+    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_ItemsList,  0  | 0);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "UsersNode_setLinkedList" "', argument " "2"" of type '" "ItemsList""'"); 
+    }  
+    if (!argp2) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "UsersNode_setLinkedList" "', argument " "2"" of type '" "ItemsList""'");
+    } else {
+      ItemsList * temp = reinterpret_cast< ItemsList * >(argp2);
+      arg2 = *temp;
+      if (SWIG_IsNewObj(res2)) delete temp;
+    }
+  }
+  (arg1)->setLinkedList(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_UsersNode_setId(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   UsersNode *arg1 = (UsersNode *) 0 ;
@@ -10674,6 +10711,164 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_UsersList_setNewLinkedList(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  UsersList *arg1 = (UsersList *) 0 ;
+  std::string arg2 ;
+  ItemsList arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp3 ;
+  int res3 = 0 ;
+  PyObject *swig_obj[3] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "UsersList_setNewLinkedList", 3, 3, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_UsersList, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "UsersList_setNewLinkedList" "', argument " "1"" of type '" "UsersList *""'"); 
+  }
+  arg1 = reinterpret_cast< UsersList * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    int res = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "UsersList_setNewLinkedList" "', argument " "2"" of type '" "std::string""'"); 
+    }
+    arg2 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  {
+    res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_ItemsList,  0  | 0);
+    if (!SWIG_IsOK(res3)) {
+      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "UsersList_setNewLinkedList" "', argument " "3"" of type '" "ItemsList""'"); 
+    }  
+    if (!argp3) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "UsersList_setNewLinkedList" "', argument " "3"" of type '" "ItemsList""'");
+    } else {
+      ItemsList * temp = reinterpret_cast< ItemsList * >(argp3);
+      arg3 = *temp;
+      if (SWIG_IsNewObj(res3)) delete temp;
+    }
+  }
+  (arg1)->setNewLinkedList(arg2,arg3);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_UsersList_tokensActuales(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  UsersList *arg1 = (UsersList *) 0 ;
+  std::string arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[2] ;
+  int result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "UsersList_tokensActuales", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_UsersList, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "UsersList_tokensActuales" "', argument " "1"" of type '" "UsersList *""'"); 
+  }
+  arg1 = reinterpret_cast< UsersList * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    int res = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "UsersList_tokensActuales" "', argument " "2"" of type '" "std::string""'"); 
+    }
+    arg2 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  result = (int)(arg1)->tokensActuales(arg2);
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_UsersList_setNewTokensWhenWinner(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  UsersList *arg1 = (UsersList *) 0 ;
+  std::string arg2 ;
+  int arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "UsersList_setNewTokensWhenWinner", 3, 3, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_UsersList, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "UsersList_setNewTokensWhenWinner" "', argument " "1"" of type '" "UsersList *""'"); 
+  }
+  arg1 = reinterpret_cast< UsersList * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    int res = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "UsersList_setNewTokensWhenWinner" "', argument " "2"" of type '" "std::string""'"); 
+    }
+    arg2 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "UsersList_setNewTokensWhenWinner" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = static_cast< int >(val3);
+  (arg1)->setNewTokensWhenWinner(arg2,arg3);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_UsersList_askSetNewTokensWhenBuying(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  UsersList *arg1 = (UsersList *) 0 ;
+  std::string arg2 ;
+  int arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  bool result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "UsersList_askSetNewTokensWhenBuying", 3, 3, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_UsersList, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "UsersList_askSetNewTokensWhenBuying" "', argument " "1"" of type '" "UsersList *""'"); 
+  }
+  arg1 = reinterpret_cast< UsersList * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    int res = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "UsersList_askSetNewTokensWhenBuying" "', argument " "2"" of type '" "std::string""'"); 
+    }
+    arg2 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "UsersList_askSetNewTokensWhenBuying" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = static_cast< int >(val3);
+  result = (bool)(arg1)->askSetNewTokensWhenBuying(arg2,arg3);
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_UsersList_sendIdsToPY(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   UsersList *arg1 = (UsersList *) 0 ;
@@ -10833,6 +11028,38 @@ SWIGINTERN PyObject *_wrap_UsersList_getLk(PyObject *SWIGUNUSEDPARM(self), PyObj
   arg2 = static_cast< int >(val2);
   (arg1)->getLk(arg2);
   resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_UsersList_getLkByName(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  UsersList *arg1 = (UsersList *) 0 ;
+  std::string arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[2] ;
+  std::vector< int > result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "UsersList_getLkByName", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_UsersList, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "UsersList_getLkByName" "', argument " "1"" of type '" "UsersList *""'"); 
+  }
+  arg1 = reinterpret_cast< UsersList * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    int res = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "UsersList_getLkByName" "', argument " "2"" of type '" "std::string""'"); 
+    }
+    arg2 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  result = (arg1)->getLkByName(arg2);
+  resultobj = swig::from(static_cast< std::vector< int,std::allocator< int > > >(result));
   return resultobj;
 fail:
   return NULL;
@@ -11126,6 +11353,7 @@ static PyMethodDef SwigMethods[] = {
 	 { "UsersNode_next_set", _wrap_UsersNode_next_set, METH_VARARGS, NULL},
 	 { "UsersNode_next_get", _wrap_UsersNode_next_get, METH_O, NULL},
 	 { "new_UsersNode", _wrap_new_UsersNode, METH_VARARGS, NULL},
+	 { "UsersNode_setLinkedList", _wrap_UsersNode_setLinkedList, METH_VARARGS, NULL},
 	 { "UsersNode_setId", _wrap_UsersNode_setId, METH_VARARGS, NULL},
 	 { "UsersNode_setNick", _wrap_UsersNode_setNick, METH_VARARGS, NULL},
 	 { "UsersNode_setPassword", _wrap_UsersNode_setPassword, METH_VARARGS, NULL},
@@ -11140,6 +11368,10 @@ static PyMethodDef SwigMethods[] = {
 	 { "new_UsersList", _wrap_new_UsersList, METH_NOARGS, NULL},
 	 { "UsersList_insert", _wrap_UsersList_insert, METH_VARARGS, NULL},
 	 { "UsersList__print", _wrap_UsersList__print, METH_O, NULL},
+	 { "UsersList_setNewLinkedList", _wrap_UsersList_setNewLinkedList, METH_VARARGS, NULL},
+	 { "UsersList_tokensActuales", _wrap_UsersList_tokensActuales, METH_VARARGS, NULL},
+	 { "UsersList_setNewTokensWhenWinner", _wrap_UsersList_setNewTokensWhenWinner, METH_VARARGS, NULL},
+	 { "UsersList_askSetNewTokensWhenBuying", _wrap_UsersList_askSetNewTokensWhenBuying, METH_VARARGS, NULL},
 	 { "UsersList_sendIdsToPY", _wrap_UsersList_sendIdsToPY, METH_O, NULL},
 	 { "UsersList_sendNicksToPY", _wrap_UsersList_sendNicksToPY, METH_O, NULL},
 	 { "UsersList_sendPasswordsToPY", _wrap_UsersList_sendPasswordsToPY, METH_O, NULL},
@@ -11147,6 +11379,7 @@ static PyMethodDef SwigMethods[] = {
 	 { "UsersList_bubblesortDown", _wrap_UsersList_bubblesortDown, METH_O, NULL},
 	 { "UsersList_bubblesortUp", _wrap_UsersList_bubblesortUp, METH_O, NULL},
 	 { "UsersList_getLk", _wrap_UsersList_getLk, METH_VARARGS, NULL},
+	 { "UsersList_getLkByName", _wrap_UsersList_getLkByName, METH_VARARGS, NULL},
 	 { "UsersList_logUser", _wrap_UsersList_logUser, METH_VARARGS, NULL},
 	 { "UsersList_setNewData", _wrap_UsersList_setNewData, METH_VARARGS, NULL},
 	 { "UsersList_deleteUser", _wrap_UsersList_deleteUser, METH_VARARGS, NULL},
@@ -11966,6 +12199,7 @@ SWIG_init(void) {
   // thread safe initialization
   swig::container_owner_attribute();
   
+  SWIG_Python_SetConstant(d, "NOT_FOUND",SWIG_From_int(static_cast< int >(-1)));
 #if PY_VERSION_HEX >= 0x03000000
   return m;
 #else

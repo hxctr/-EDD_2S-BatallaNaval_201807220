@@ -173,6 +173,11 @@ def getShotsFromP1():
     accurate_shot = auxlist1.seachPos(xcoor1, ycoor1)
     if accurate_shot == 1:
         messagebox.showinfo("Jugador 1", "Disparo acertado en ("+str(xcoor1)+", "+str(ycoor1)+")")
+        users_object.setNewTokensWhenWinner(entryUser, 100)
+        ft2 = tkFont.Font(family='Times', size=23)
+        lbl_tokens_p1 = tk.Label(play_frame, text=str(users_object.tokensActuales(str(entryUser))), font=ft2)
+        lbl_tokens_p1.place(x = 100, y=140, width=200, height=30)
+        
         auxlist1.deleteByGivenInfo(xcoor1, ycoor1)
         if auxlist1.getSize() == 0:
             messagebox.showinfo("Jugador 1", "¡Felicidades, jugador 1 es el ganador!")
@@ -225,6 +230,10 @@ def getShotsFromP2():
     if accurate_shot == 1:
         messagebox.showinfo("Jugador 2", "Disparo acertado en ("+str(xcoor2)+", "+str(ycoor2)+")")
         auxlist2.deleteByGivenInfo(xcoor2, ycoor2)
+        users_object.setNewTokensWhenWinner(player2_name, 100)
+        ft3 = tkFont.Font(family='Times', size=23)
+        lbl_tokens_p2 = tk.Label(play_frame, text=str(users_object.tokensActuales(str(player2_name))), font=ft3)
+        lbl_tokens_p2.place(x = 1020, y=140, width=200, height=30)
         if auxlist2.getSize() == 0:
             messagebox.showinfo("Jugador 2", "¡Felicidades, jugador 2 es el ganador!")
             global flag
@@ -246,10 +255,8 @@ def popup_statistics_winner():
     popupwindow.geometry('1500x900')
     popupwindow.title('Estadisticas')
     
-    poplabel = tk.Label(popupwindow, text="Hello world")
-    poplabel.pack(fill='x', padx=50, pady=5)
     
-    close_btn = tk.Button(popupwindow, text='Close', command=infostatistics)
+    close_btn = tk.Button(popupwindow, text='Ver estadisticas', command=infostatistics)
     close_btn.pack(fill='x')
     
     global img_graph#global if then I need to destroy it
@@ -332,6 +339,14 @@ def infostatistics():
         Destructores = B_m * 3;
         Buques = B_m * 4;
         messagebox.showinfo("Estadisticas del usuario", "Nombre del ganador: "+str(entryUser)+ "\nTamaño tablero:"+str(matriz_size_player_1)+"\nPortaaviones destruidos: "+str(Portaaviones)+"\nSubmarinos destruidos: "+str(Submarinos)+"\nDestructores abatidos: "+str(Destructores)+"\nBuques abatidos: "+str(Buques))
+    elif flag is False:
+        B_m = int(((matriz_size_player_2-1)/10) +1 )
+        Portaaviones = B_m * 1;
+        Submarinos = B_m * 2;
+        Destructores = B_m * 3;
+        Buques = B_m * 4;
+        messagebox.showinfo("Estadisticas del usuario", "Nombre del ganador: "+str(player2_name)+ "\nTamaño tablero:"+str(matriz_size_player_2)+"\nPortaaviones destruidos: "+str(Portaaviones)+"\nSubmarinos destruidos: "+str(Submarinos)+"\nDestructores abatidos: "+str(Destructores)+"\nBuques abatidos: "+str(Buques))
+        
        
     
     
@@ -394,9 +409,28 @@ def setMatrixTwo():
     
 
 def insertMatrixPlayerTwo():
+    
+    
+    
     global matriz_size_player_2
     matriz_size_player_2 = simpledialog.askstring('Jugador 2',"Ingrese el tamaño de su matriz: ", parent=root)
     matriz_size_player_2 = int(matriz_size_player_2)
+    
+    global player2_name
+    player2_name = simpledialog.askstring('Jugador 2',"Ingrese el tamaño su nombre: ", parent=root)
+    
+    
+    
+    ft = tkFont.Font(family='Times', size=23)
+    lbl_name_p2 = tk.Label(play_frame, text=str(player2_name), font=ft)
+    lbl_name_p2.place(x = 1000, y=80, width=255, height=50)
+    
+    
+    
+    ft3 = tkFont.Font(family='Times', size=23)
+    lbl_tokens_p2 = tk.Label(play_frame, text=str(users_object.tokensActuales(str(player2_name))), font=ft3)
+    lbl_tokens_p2.place(x = 1020, y=140, width=200, height=30)
+    
     print('pressed button to fill matrix')
     global matriz2
     global auxlist2
@@ -648,9 +682,18 @@ def login():
     entryUser = ety_user_login.get()
     entryPass = ety_pass_login.get()
     print(entryUser)
+    global lbl_tokens_p1
+    ft = tkFont.Font(family='Times', size=23)
+    lbl_name_p1 = tk.Label(play_frame, text=str(entryUser), font=ft)
+    lbl_name_p1.place(x = 80, y=80, width=255, height=50)
     
-    lbl_name_p1 = tk.Label(play_frame, text=str(entryUser))
-    lbl_name_p1.place(x = 30, y=40, width=79, height=30)
+    
+    
+    ft2 = tkFont.Font(family='Times', size=23)
+    lbl_tokens_p1 = tk.Label(play_frame, text=str(users_object.tokensActuales(str(entryUser))), font=ft2)
+    lbl_tokens_p1.place(x = 100, y=140, width=200, height=30)
+    
+    
     
     user_state = users_object.logUser(entryUser, entryPass)
     

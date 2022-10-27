@@ -334,6 +334,7 @@ class StringVector(object):
 # Register StringVector in _Users:
 _Users.StringVector_swigregister(StringVector)
 
+NOT_FOUND = _Users.NOT_FOUND
 class ItemNode(object):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -385,6 +386,9 @@ class UsersNode(object):
     def __init__(self, id, nick, password, monedas, edad, linked_list):
         _Users.UsersNode_swiginit(self, _Users.new_UsersNode(id, nick, password, monedas, edad, linked_list))
 
+    def setLinkedList(self, newlist):
+        return _Users.UsersNode_setLinkedList(self, newlist)
+
     def setId(self, id):
         return _Users.UsersNode_setId(self, id)
 
@@ -421,6 +425,18 @@ class UsersList(object):
     def _print(self):
         return _Users.UsersList__print(self)
 
+    def setNewLinkedList(self, nick, newlist):
+        return _Users.UsersList_setNewLinkedList(self, nick, newlist)
+
+    def tokensActuales(self, nick):
+        return _Users.UsersList_tokensActuales(self, nick)
+
+    def setNewTokensWhenWinner(self, nick, monedas):
+        return _Users.UsersList_setNewTokensWhenWinner(self, nick, monedas)
+
+    def askSetNewTokensWhenBuying(self, nick, monedas):
+        return _Users.UsersList_askSetNewTokensWhenBuying(self, nick, monedas)
+
     def sendIdsToPY(self):
         return _Users.UsersList_sendIdsToPY(self)
 
@@ -441,6 +457,9 @@ class UsersList(object):
 
     def getLk(self, id):
         return _Users.UsersList_getLk(self, id)
+
+    def getLkByName(self, nick):
+        return _Users.UsersList_getLkByName(self, nick)
 
     def logUser(self, nick, password):
         return _Users.UsersList_logUser(self, nick, password)
