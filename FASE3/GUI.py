@@ -7,6 +7,7 @@ from tkinter import BOTTOM, LEFT, Button, Label, PhotoImage, ttk, simpledialog, 
 import tkinter as tk
 import tkinter.font as tkFont
 from unicodedata import category
+from hash import ClosedHashing, Node
 from PIL import Image, ImageTk
 import os
 import json
@@ -814,12 +815,60 @@ def show_list_of_items():
     
     
     
-    close_btn = tk.Button(shopping_cart, text='Tabla Hash', command=infostatistics)
-    close_btn.pack(fill='y', side=LEFT)
-    btn_buy = tk.Button(shopping_cart, text='Comprar', command=infostatistics)
+    btn_display_hashTable = tk.Button(shopping_cart, text='Tabla Hash', command=displayHashTable)
+    btn_display_hashTable.pack(fill='y', side=LEFT)
+    
+    btn_buy = tk.Button(shopping_cart, text='Confirmar pago', command=confirmPurchase)
     btn_buy.pack(fill='y',side=LEFT)
 
+
+def displayHashTable():
+    popup_hashtable = tk.Toplevel()
+    popup_hashtable.geometry('620x525')
+    popup_hashtable.title('Tabla Hash')
+    
+    img_adjacent = tk.Frame(popup_hashtable, height=500, width=600, borderwidth=1, bg="RED")
+    img_adjacent.place(relx=0, rely=0)
+    
+    canvas_adjacent = tk.Canvas(img_adjacent, height=500, width=600, relief=tk.SUNKEN)
+    
+    sbarV_adjacent = tk.Scrollbar(img_adjacent, orient=tk.VERTICAL, command=canvas_adjacent.yview)    
+    sbarH_adjacent = tk.Scrollbar(img_adjacent, orient=tk.HORIZONTAL, command=canvas_adjacent.xview)  
+    sbarV_adjacent.pack(side=tk.RIGHT, fill=tk.Y)
+    sbarH_adjacent.pack(side=tk.BOTTOM, fill=tk.X)
+    
+    canvas_adjacent.config(yscrollcommand=sbarV_adjacent.set)
+    canvas_adjacent.config(xscrollcommand=sbarH_adjacent.set)
+    canvas_adjacent.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
+    
+    grafoimagen = Image.open('./Graphviz/hashTable.png')
+    width, height = grafoimagen.size
+    canvas_adjacent.config(scrollregion=(0,0, width, height))
+    img3 = ImageTk.PhotoImage(grafoimagen)
+    imagegraph = canvas_adjacent.create_image(0,0,anchor = "nw", image=img3)
+    img_adjacent.image =  img3
+    img_adjacent.img3 = img3
+
+
  
+def confirmPurchase():
+    ids = shopping_list.sendIdsToPY()
+    precio = shopping_list.sendPrecioToPY()
+    nombre = shopping_list.sendNombreToPY()
+    
+    hashTable = ClosedHashing(13, 20, 80, "Division", "cuadratica")
+    for i in range(len(ids)):
+        node = Node(ids[i], nombre[i])
+        hashTable.insert(node)
+        print(ids[i], precio[i], nombre[i])
+    
+    
+    graphHashTable = hashTable.getGraph()
+    archivo = open('./Graphviz/hashTable.dot', 'w')
+    archivo.write(graphHashTable)
+    archivo.close()
+    os.system("dot -Tpng ./Graphviz/hashTable.dot -o ./Graphviz/hashTable.png ")
+    
     
 
 

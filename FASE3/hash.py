@@ -85,47 +85,48 @@ class ClosedHashing():
                 print(i,this.table[i].getId(), this.table[i].getName())
         
         graph += "</TABLE>>];}"
-        print(graph)
+        return graph
+        # print(graph)
 
-hashTable = ClosedHashing(13, 20, 80, "Division", "cuadratica")
-a1 = Node(5, "hola")
-a2 = Node(9, "hola")
-a3 = Node(408, "hola")
-a4 = Node(25, "hola")
-a5 = Node(89, "hola")
-a6 = Node(50, "hola")
-a7 = Node(58, "hola")
-a8 = Node(69, "hola")
-a9 = Node(452, "hola")
-a10 = Node(408, "hola")
-a11= Node(965, "hola")
+# hashTable = ClosedHashing(13, 20, 80, "Division", "cuadratica")
+# a1 = Node(5, "hola")
+# a2 = Node(9, "hola")
+# a3 = Node(408, "hola")
+# a4 = Node(25, "hola")
+# a5 = Node(89, "hola")
+# a6 = Node(50, "hola")
+# a7 = Node(58, "hola")
+# a8 = Node(69, "hola")
+# a9 = Node(452, "hola")
+# a10 = Node(408, "hola")
+# a11= Node(965, "hola")
 
-# a7 = Node(96, "hola")
+# # a7 = Node(96, "hola")
 
 
 
-hashTable.insert(a1)#5 --
-hashTable.insert(a2)#9 --
-hashTable.insert(a3)#5--xxx
-hashTable.insert(a4)#12---///
-hashTable.insert(a5)#11---xxxx
-hashTable.insert(a6)#11---////
-hashTable.insert(a7)
-hashTable.insert(a8)
-hashTable.insert(a9)
-hashTable.insert(a10)
-# hashTable.insert(a11)
-# hashTable.insert(a7)#5 --////
-"""
-hashTable.insert(5)#5 --
-hashTable.insert(9)#9 --
-hashTable.insert(408)#5--xxx
-hashTable.insert(25)#12---///
-hashTable.insert(89)#11---xxxx
-hashTable.insert(50)#11---////
-hashTable.insert(96)#5 --////
-"""
-# hashTable.insert(25)
-# hashTable.insert(36)
-# hashTable.insert(15)
-hashTable.getGraph()
+# hashTable.insert(a1)#5 --
+# hashTable.insert(a2)#9 --
+# hashTable.insert(a3)#5--xxx
+# hashTable.insert(a4)#12---///
+# hashTable.insert(a5)#11---xxxx
+# hashTable.insert(a6)#11---////
+# hashTable.insert(a7)
+# hashTable.insert(a8)
+# hashTable.insert(a9)
+# hashTable.insert(a10)
+# # hashTable.insert(a11)
+# # hashTable.insert(a7)#5 --////
+# """
+# hashTable.insert(5)#5 --
+# hashTable.insert(9)#9 --
+# hashTable.insert(408)#5--xxx
+# hashTable.insert(25)#12---///
+# hashTable.insert(89)#11---xxxx
+# hashTable.insert(50)#11---////
+# hashTable.insert(96)#5 --////
+# """
+# # hashTable.insert(25)
+# # hashTable.insert(36)
+# # hashTable.insert(15)
+# hashTable.getGraph()
