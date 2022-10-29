@@ -3,7 +3,7 @@ from fileinput import close
 
 from json import load
 from re import X
-from tkinter import Button, Label, PhotoImage, ttk, simpledialog, Canvas, messagebox
+from tkinter import BOTTOM, LEFT, Button, Label, PhotoImage, ttk, simpledialog, Canvas, messagebox
 import tkinter as tk
 import tkinter.font as tkFont
 from unicodedata import category
@@ -761,6 +761,69 @@ def buy_item(entry_item, aver):
 def generate_img():
     pass
 
+def buyItem():
+    print('insertando articulo a lista')
+    getId = int(ety_name_item.get())
+    print(getId)
+    print(items_object.returnNameById(getId), items_object.returnPriceById(getId))
+    
+    shopping_list.insert(getId, "No category", items_object.returnNameById(getId), items_object.returnPriceById(getId), "No img")
+    
+    
+def show_list_of_items():
+    shopping_cart = tk.Toplevel()
+    shopping_cart.geometry('600x500')
+    shopping_cart.title('Carrito de compras')
+    
+    #list all items I pretend to buy
+    ids = shopping_list.sendIdsToPY()
+    precio = shopping_list.sendPrecioToPY()
+    nombre = shopping_list.sendNombreToPY()
+    #muestro tiendda
+    treev = ttk.Treeview(shopping_cart, selectmode ='browse') 
+    treev.pack(side='left',expand=True, fill='both') 
+
+    verscrlbar = ttk.Scrollbar(shopping_cart,  
+                           orient ="vertical",  
+                           command = treev.yview) 
+  
+    verscrlbar.pack(side ='right', fill ='y')   
+    treev.configure(yscrollcommand = verscrlbar.set) 
+
+
+  
+    treev["columns"] = ('1', '2', '3') 
+
+    treev['show'] = 'headings'
+  
+    treev.column("1", width = 90, anchor ='c') 
+    treev.column("2", width = 90, anchor ='c') 
+    treev.column("3", width = 90, anchor ='c') 
+
+
+    treev.heading("1", text ="ID") 
+    treev.heading("2", text ="Nombre") 
+    treev.heading("3", text ="Precio") 
+
+    
+
+    for w, x, y in zip(ids, nombre, precio ):    
+        treev.insert("", 'end', values =(w, x, y))
+    
+    #finish of show the item of the shopping cart
+    
+    
+    
+    close_btn = tk.Button(shopping_cart, text='Tabla Hash', command=infostatistics)
+    close_btn.pack(fill='y', side=LEFT)
+    btn_buy = tk.Button(shopping_cart, text='Comprar', command=infostatistics)
+    btn_buy.pack(fill='y',side=LEFT)
+
+ 
+    
+
+
+    
 def mostrarTienda(articulos):
     
     aver = list()
@@ -769,13 +832,19 @@ def mostrarTienda(articulos):
     for widget in tienda_frame.winfo_children():
         widget.destroy()
     
-    ety_name_item = tk . Entry(tienda_frame)
+    global ety_name_item
+    global item#no lo uso por ahora
+    
+    ety_name_item = tk.Entry(tienda_frame)
     ety_name_item["borderwidth"] = "1px"
     ft = tkFont.Font(family='Times', size=18)
     ety_name_item["font"] = ft
     ety_name_item["fg"] = "#000000"
     ety_name_item["justify"] = "center"
     ety_name_item.pack(padx=40)
+    
+    
+    
 
     btn_buy_item = tk.Button()
     btn_buy_item = tk.Button(tienda_frame)
@@ -784,11 +853,10 @@ def mostrarTienda(articulos):
     btn_buy_item["font"] = ft
     btn_buy_item["fg"] = "#ffffff"
     btn_buy_item["justify"] = "center"
-    btn_buy_item["text"] = "Comprar articulo"
+    btn_buy_item["text"] = "Añadir al carrito"
     btn_buy_item["relief"] = "raised"
     btn_buy_item.pack(pady=20)
-    entry_item = ety_name_item.get()
-    btn_buy_item["command"] = lambda: buy_item(ety_name_item.get(), aver)
+    btn_buy_item["command"] = buyItem
 
     btn_rt_asc_frame = tk.Button()
     btn_rt_asc_frame = tk.Button(tienda_frame)
@@ -801,6 +869,18 @@ def mostrarTienda(articulos):
     btn_rt_asc_frame["relief"] = "raised"
     btn_rt_asc_frame.pack(pady=20)
     btn_rt_asc_frame["command"] = change_to_user
+    
+    btn_list_of_items = tk.Button()
+    btn_list_of_items = tk.Button(tienda_frame)
+    btn_list_of_items["cursor"] = "heart"
+    ft = tkFont.Font(family='Times', size=18)
+    btn_list_of_items["font"] = ft
+    btn_list_of_items["fg"] = "#ffffff"
+    btn_list_of_items["justify"] = "center"
+    btn_list_of_items["text"] = "Ver carrito"
+    btn_list_of_items["relief"] = "raised"
+    btn_list_of_items.pack(pady=20)
+    btn_list_of_items["command"] = show_list_of_items
     
     
     
@@ -1231,6 +1311,8 @@ def change_to_user():
     play_frame.forget()
     global flag
     flag = None#Boolean variable to show P1 if it changes to true, if not it means it is false, so show P2 statistics
+    global shopping_list
+    shopping_list = items.ListaArticulos()
     user_frame.pack(fill='both', expand=1)
     
     # getInUserTab()
@@ -1275,6 +1357,7 @@ def change_to_login():
     login_frame.pack(fill='both', expand=1)
     user_frame.forget()
     admin_frame.forget()
+   
 
 
 # Now we get to the program itself:-
@@ -1591,7 +1674,9 @@ winnerStatistics.place(x=1300,y=70,width=151,height=30)
 winnerStatistics["command"] = popup_statistics_winner
 # change_to_user
 
+#for tienda
 
+#end tienda widgets
 
 
 # show_return_usuario = tk.Button(

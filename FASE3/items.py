@@ -362,8 +362,11 @@ class ListaArticulos(object):
     def insert(self, id, categoria, nombre, precio, src_img):
         return _items.ListaArticulos_insert(self, id, categoria, nombre, precio, src_img)
 
-    def returnIdByName(self, nombre):
-        return _items.ListaArticulos_returnIdByName(self, nombre)
+    def returnNameById(self, id):
+        return _items.ListaArticulos_returnNameById(self, id)
+
+    def returnPriceById(self, id):
+        return _items.ListaArticulos_returnPriceById(self, id)
 
     def sendIdsToPY(self):
         return _items.ListaArticulos_sendIdsToPY(self)

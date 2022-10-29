@@ -56,13 +56,26 @@ public:
         }
     }
 
-    int returnIdByName(string nombre){
+    string returnNameById(int id){
         NodoArticulo *auxi = this->head;
         while (auxi != nullptr)
         {
-            if (auxi->nombre == nombre)
+            if (auxi->id == id)
             {
-                return auxi->id;
+                return auxi->nombre;
+            }
+            auxi = auxi->next;
+        }
+        return "NOT_FOUND";
+    }
+
+    int returnPriceById(int id){
+        NodoArticulo *auxi = this->head;
+        while (auxi != nullptr)
+        {
+            if (auxi->id == id)
+            {
+                return auxi->precio;
             }
             auxi = auxi->next;
         }

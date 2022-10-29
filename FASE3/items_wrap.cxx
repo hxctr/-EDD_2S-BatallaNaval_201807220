@@ -9998,31 +9998,59 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_ListaArticulos_returnIdByName(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_ListaArticulos_returnNameById(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   ListaArticulos *arg1 = (ListaArticulos *) 0 ;
-  std::string arg2 ;
+  int arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  std::string result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "ListaArticulos_returnNameById", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ListaArticulos, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ListaArticulos_returnNameById" "', argument " "1"" of type '" "ListaArticulos *""'"); 
+  }
+  arg1 = reinterpret_cast< ListaArticulos * >(argp1);
+  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ListaArticulos_returnNameById" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = static_cast< int >(val2);
+  result = (arg1)->returnNameById(arg2);
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ListaArticulos_returnPriceById(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ListaArticulos *arg1 = (ListaArticulos *) 0 ;
+  int arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
   PyObject *swig_obj[2] ;
   int result;
   
-  if (!SWIG_Python_UnpackTuple(args, "ListaArticulos_returnIdByName", 2, 2, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "ListaArticulos_returnPriceById", 2, 2, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ListaArticulos, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ListaArticulos_returnIdByName" "', argument " "1"" of type '" "ListaArticulos *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ListaArticulos_returnPriceById" "', argument " "1"" of type '" "ListaArticulos *""'"); 
   }
   arg1 = reinterpret_cast< ListaArticulos * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    int res = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
-    if (!SWIG_IsOK(res) || !ptr) {
-      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "ListaArticulos_returnIdByName" "', argument " "2"" of type '" "std::string""'"); 
-    }
-    arg2 = *ptr;
-    if (SWIG_IsNewObj(res)) delete ptr;
-  }
-  result = (int)(arg1)->returnIdByName(arg2);
+  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ListaArticulos_returnPriceById" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = static_cast< int >(val2);
+  result = (int)(arg1)->returnPriceById(arg2);
   resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
 fail:
@@ -10337,7 +10365,8 @@ static PyMethodDef SwigMethods[] = {
 	 { "NodoArticulo_swiginit", NodoArticulo_swiginit, METH_VARARGS, NULL},
 	 { "new_ListaArticulos", _wrap_new_ListaArticulos, METH_NOARGS, NULL},
 	 { "ListaArticulos_insert", _wrap_ListaArticulos_insert, METH_VARARGS, NULL},
-	 { "ListaArticulos_returnIdByName", _wrap_ListaArticulos_returnIdByName, METH_VARARGS, NULL},
+	 { "ListaArticulos_returnNameById", _wrap_ListaArticulos_returnNameById, METH_VARARGS, NULL},
+	 { "ListaArticulos_returnPriceById", _wrap_ListaArticulos_returnPriceById, METH_VARARGS, NULL},
 	 { "ListaArticulos_sendIdsToPY", _wrap_ListaArticulos_sendIdsToPY, METH_O, NULL},
 	 { "ListaArticulos_sendCategoriaToPY", _wrap_ListaArticulos_sendCategoriaToPY, METH_O, NULL},
 	 { "ListaArticulos_sendPrecioToPY", _wrap_ListaArticulos_sendPrecioToPY, METH_O, NULL},
