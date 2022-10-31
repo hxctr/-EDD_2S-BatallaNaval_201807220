@@ -1,6 +1,6 @@
 from ast import If
 from fileinput import close
-
+import time
 from json import load
 from re import X
 from tkinter import BOTTOM, LEFT, Button, Label, PhotoImage, ttk, simpledialog, Canvas, messagebox
@@ -11,15 +11,18 @@ from hash import ClosedHashing, Node
 from PIL import Image, ImageTk
 import os
 import json
-
+import re
 from scrollmg import ScrollableImage
-
+from eth_account import Account
+import secrets
 import btree
 import Users
 import items
 import ALVTree
 from auxList import AuxList
 from adjacentList import AdjacentList
+from MerkleTree import Merkle
+from blockchain import Cadena
 
 
 
@@ -27,6 +30,8 @@ btree_object = btree.ArbolB()
 users_object = Users.UsersList()
 list_items = Users.ItemsList()
 items_object = items.ListaArticulos()
+merkle = Merkle()
+blockchain = Cadena()
 
 
 from MatrizDispersa import MatrizDispersa
@@ -678,6 +683,8 @@ def loadUsers():
 loadUsers()
     
 def login():
+    global shopping_list
+    shopping_list = items.ListaArticulos()
     
     global entryUser
     entryUser = ety_user_login.get()
@@ -849,19 +856,157 @@ def displayHashTable():
     img_adjacent.image =  img3
     img_adjacent.img3 = img3
 
+def insertInMerkleTree():# se ejecuta con GENERAR BLOQUE
+    #Aqui solo inserto en el merkle, la concatenacion de las fechas con ids,
+    #en blockain mando esa misma cadena, y le mando el tophash
+    #aqui estoy ejecutando el metodo para generar el json tambien
+    print('Insertando en arbol de merkle')
+    ids = shopping_list.sendIdsToPY()
+    nodemerkle = ""
+    for i in range(len(ids)):
+        nodemerkle += str(ids[i])+","+str(time.strftime("%d/%m/%y"))+"-"+str(time.strftime("%H:%M:%S"))
+    
+    print(nodemerkle)
+    merkle.add(nodemerkle)
+    merkle.autenticacion()
+    merkledot = merkle.graficar()
+    
+    #comer
+    pattern = r"{[^{}]*?\bnodo(\w+)\[label=\"[^\s\"*]*\"]"
+    m = re.search(pattern, merkledot)
+    print('la raiz es : ',m.group(1))
+    blockchain.agregar(nodemerkle, m.group(1))
+    
+    
+    # blockchain.agregar()
+    archivo = open('./Graphviz/merkleTree.dot', 'w')
+    archivo.write(merkledot)
+    archivo.close()
+    os.system("dot -Tpng ./Graphviz/merkleTree.dot -o ./Graphviz/merkleTree.png")
+    # global shopping_list
+    # shopping_list = items.ListaArticulos()
+    shopping_list.deleteList()
+    
+    blockchain.graficarBlockchain()
 
- 
+def displayBMerkle():
+    popup_hashtable = tk.Toplevel()
+    popup_hashtable.geometry('620x525')
+    popup_hashtable.title('Arbol de Merkle')
+    
+    img_adjacent = tk.Frame(popup_hashtable, height=500, width=600, borderwidth=1, bg="RED")
+    img_adjacent.place(relx=0, rely=0)
+    
+    canvas_adjacent = tk.Canvas(img_adjacent, height=500, width=600, relief=tk.SUNKEN)
+    
+    sbarV_adjacent = tk.Scrollbar(img_adjacent, orient=tk.VERTICAL, command=canvas_adjacent.yview)    
+    sbarH_adjacent = tk.Scrollbar(img_adjacent, orient=tk.HORIZONTAL, command=canvas_adjacent.xview)  
+    sbarV_adjacent.pack(side=tk.RIGHT, fill=tk.Y)
+    sbarH_adjacent.pack(side=tk.BOTTOM, fill=tk.X)
+    
+    canvas_adjacent.config(yscrollcommand=sbarV_adjacent.set)
+    canvas_adjacent.config(xscrollcommand=sbarH_adjacent.set)
+    canvas_adjacent.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
+    
+    grafoimagen = Image.open('./Graphviz/merkleTree.png')
+    width, height = grafoimagen.size
+    canvas_adjacent.config(scrollregion=(0,0, width, height))
+    img3 = ImageTk.PhotoImage(grafoimagen)
+    imagegraph = canvas_adjacent.create_image(0,0,anchor = "nw", image=img3)
+    img_adjacent.image =  img3
+    img_adjacent.img3 = img3
+
+def genesisBlock():
+    data = " "
+    tophash = "7618f66753db7ec069c83ed8c197708e1402396774f60961065addd678933871"
+    blockchain.bloqueGenesis(data, tophash)#ingreso del bloque genesis
+    
+def privateKeyWindow():
+    popup_privatekey = tk.Toplevel()
+    popup_privatekey.geometry('400x200')
+    popup_privatekey.title('Llave privada')
+    
+    
+    GLabel_144=tk.Label(popup_privatekey)
+    ft = tkFont.Font(family='Times',size=10)
+    GLabel_144["font"] = ft
+    GLabel_144["fg"] = "#333333"
+    GLabel_144["justify"] = "center"
+    GLabel_144["text"] = "Private Key"
+    GLabel_144.place(x=160,y=10,width=83,height=30)
+
+    GLineEdit_248=tk.Entry(popup_privatekey)
+    GLineEdit_248["borderwidth"] = "1px"
+    ft = tkFont.Font(family='Times',size=10)
+    GLineEdit_248["font"] = ft
+    GLineEdit_248["fg"] = "#333333"
+    GLineEdit_248["justify"] = "center"
+    GLineEdit_248.place(x=20,y=40,width=361,height=30)
+    
+    priv=secrets.token_hex(32);
+
+    priv_key = "0x"+priv;
+    
+    GLineEdit_248.delete(0, tk.END)
+    GLineEdit_248.insert(0, priv_key)
+    
+    
+
+    GLineEdit_386=tk.Entry(popup_privatekey)
+    GLineEdit_386["borderwidth"] = "1px"
+    ft = tkFont.Font(family='Times',size=10)
+    GLineEdit_386["font"] = ft
+    GLineEdit_386["fg"] = "#333333"
+    GLineEdit_386["justify"] = "center"
+    GLineEdit_386.place(x=20,y=130,width=361,height=30)
+
+    GLabel_160=tk.Label(popup_privatekey)
+    ft = tkFont.Font(family='Times',size=10)
+    GLabel_160["font"] = ft
+    GLabel_160["fg"] = "#333333"
+    GLabel_160["justify"] = "center"
+    GLabel_160["text"] = "Wallet Address"
+    GLabel_160.place(x=140,y=100,width=123,height=30)    
+    
+    acct=Account.from_key(priv_key)
+
+    GLineEdit_386.delete(0, tk.END)
+    GLineEdit_386.insert(0, acct.address)
+
+    
+    
+    
+    
+    
 def confirmPurchase():
     ids = shopping_list.sendIdsToPY()
     precio = shopping_list.sendPrecioToPY()
     nombre = shopping_list.sendNombreToPY()
     
+    #comer
+    jsonPurchase = ""
+    jsonPurchase = '"DATA":{\n\t"FROM": "0x4281ecf07378ee595c564a59048801330f3084ee",\n'
+    
     hashTable = ClosedHashing(13, 20, 80, "Division", "cuadratica")
     for i in range(len(ids)):
         node = Node(ids[i], nombre[i])
         hashTable.insert(node)
+        jsonPurchase += '\t"SKINS": [\n'
+        jsonPurchase += '\t\t{\n'
+        jsonPurchase += '\t\t\t"SKIN":'+str(ids[i])+'\n'
+        jsonPurchase += '\t\t\t"VALUE":'+str(precio[i])+'\n'
+        jsonPurchase += '\t\t},\n'
         print(ids[i], precio[i], nombre[i])
-    
+    #comer
+    jsonPurchase += '\t]\n}'
+    textname = str(len(ids))+"-"+str(time.strftime("%d/%m/%y"))+"-"+str(time.strftime("%H:%M:%S"))
+    textname = textname.replace(":", "--")
+    textname = textname.replace("/", "-")
+    #str(len(ids))+str(time.strftime("%d/%m/%y"))+"-"+str(time.strftime("%H:%M:%S"))
+    with open(textname+".json", 'w') as textwrite:
+        textwrite.write(jsonPurchase)
+            
+ 
     
     graphHashTable = hashTable.getGraph()
     archivo = open('./Graphviz/hashTable.dot', 'w')
@@ -1360,8 +1505,8 @@ def change_to_user():
     play_frame.forget()
     global flag
     flag = None#Boolean variable to show P1 if it changes to true, if not it means it is false, so show P2 statistics
-    global shopping_list
-    shopping_list = items.ListaArticulos()
+    # global shopping_list
+    # shopping_list = items.ListaArticulos() #creo que la tengo que reiniciar al iniciar sesion
     user_frame.pack(fill='both', expand=1)
     
     # getInUserTab()
@@ -1406,6 +1551,7 @@ def change_to_login():
     login_frame.pack(fill='both', expand=1)
     user_frame.forget()
     admin_frame.forget()
+    
    
 
 
@@ -1592,15 +1738,35 @@ show_btree.pack(pady=85)
 #buttons for user interface
 show_tienda = tk.Button(
     user_frame, font=font_small, text='Ir a la tienda', command=change_to_tienda)
-show_tienda.pack(pady=85)
+show_tienda.pack(pady=20)
 
 show_playground = tk.Button(
     user_frame, font=font_small, text='Iniciar Partida', command=change_to_playground)
-show_playground.pack(pady=85)
+show_playground.pack(pady=40)
 
 show_admn = tk.Button(
     user_frame, font=font_small, text='Cerrar Sesion', command=change_to_login)
-show_admn.pack(pady=85)
+show_admn.pack(pady=60)
+
+btn_generate_block = tk.Button(
+    user_frame, font=font_small, text='Generar Bloque', command=insertInMerkleTree)
+btn_generate_block.pack(pady=70)
+
+btn_show_merkle = tk.Button(
+    user_frame, font=font_small, text='Mostrar arbol de Merkle', command=displayBMerkle)
+btn_show_merkle.pack(pady=80)
+
+btn_gen_genesis = tk.Button(
+    user_frame, font=font_small, text='Bloque genesis', command=genesisBlock)
+btn_gen_genesis.pack(pady=40, padx=20)
+
+btn_gen_wallet = tk.Button(
+    user_frame, font=font_small, text='Generar llave privada', command=privateKeyWindow)
+btn_gen_wallet.place(x=1270, y=780, width=179, height=33)
+
+
+
+
 
 #buttons for playground interface
 

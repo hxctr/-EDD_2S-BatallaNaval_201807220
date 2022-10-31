@@ -386,8 +386,8 @@ class ListaArticulos(object):
     def _print(self):
         return _items.ListaArticulos__print(self)
 
-    def deleteList(self, head):
-        return _items.ListaArticulos_deleteList(self, head)
+    def deleteList(self):
+        return _items.ListaArticulos_deleteList(self)
     __swig_destroy__ = _items.delete_ListaArticulos
 
 # Register ListaArticulos in _items:

@@ -10198,25 +10198,18 @@ fail:
 SWIGINTERN PyObject *_wrap_ListaArticulos_deleteList(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   ListaArticulos *arg1 = (ListaArticulos *) 0 ;
-  NodoArticulo *arg2 = (NodoArticulo *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
+  PyObject *swig_obj[1] ;
   
-  if (!SWIG_Python_UnpackTuple(args, "ListaArticulos_deleteList", 2, 2, swig_obj)) SWIG_fail;
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ListaArticulos, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ListaArticulos_deleteList" "', argument " "1"" of type '" "ListaArticulos *""'"); 
   }
   arg1 = reinterpret_cast< ListaArticulos * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_NodoArticulo, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ListaArticulos_deleteList" "', argument " "2"" of type '" "NodoArticulo *""'"); 
-  }
-  arg2 = reinterpret_cast< NodoArticulo * >(argp2);
-  (arg1)->deleteList(arg2);
+  (arg1)->deleteList();
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -10373,7 +10366,7 @@ static PyMethodDef SwigMethods[] = {
 	 { "ListaArticulos_sendNombreToPY", _wrap_ListaArticulos_sendNombreToPY, METH_O, NULL},
 	 { "ListaArticulos_sendSRCToPY", _wrap_ListaArticulos_sendSRCToPY, METH_O, NULL},
 	 { "ListaArticulos__print", _wrap_ListaArticulos__print, METH_O, NULL},
-	 { "ListaArticulos_deleteList", _wrap_ListaArticulos_deleteList, METH_VARARGS, NULL},
+	 { "ListaArticulos_deleteList", _wrap_ListaArticulos_deleteList, METH_O, NULL},
 	 { "delete_ListaArticulos", _wrap_delete_ListaArticulos, METH_O, NULL},
 	 { "ListaArticulos_swigregister", ListaArticulos_swigregister, METH_O, NULL},
 	 { "ListaArticulos_swiginit", ListaArticulos_swiginit, METH_VARARGS, NULL},

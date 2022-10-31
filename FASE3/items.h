@@ -160,15 +160,15 @@ public:
         }
     }
 
-    void deleteList(NodoArticulo *head)
-    {
-        NodoArticulo *prev = head;
-
-        while (head)
+    void deleteList() {
+        NodoArticulo* node = this->head;
+        while (node)
         {
-            this->head = head->next;
-            delete (prev);
-            prev = this->head;
+            NodoArticulo *next = node->next;
+            delete node;
+            node = next;
         }
+        this->head = nullptr;
+        this->size = 0;
     }
 };
