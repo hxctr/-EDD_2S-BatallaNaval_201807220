@@ -56,12 +56,8 @@ class Cadena:
         this.indice += 1
         this.cadena.append(nuevo)
     
-    def graficarBlockchain(this):
+    def escribirBloque(this):
         stringfile = ""
-        conexiones = ""
-        nodos = ""
-        cadena = "digraph Blockchain{\nlabel = \"Blockchain\";\nnode [shape=box];\n"
-
         if (this.indice == 0):
             pass
         else:
@@ -69,5 +65,5 @@ class Cadena:
                 stringfile += '\n{\n"INDEX": "'+str(i)+'",\n"TIMESTAMP": "'+str(this.cadena[i].timeStamp)+'",\n"DATA": "'+this.cadena[i].data+'",\n"PREVIOUSHASH": "'+str(this.cadena[i].previusHash)+'",\n"ROOTMERKLE": "'+ str(this.cadena[i].rootMerkle)+'",\n"HASH": "'+str(this.cadena[i].hash)+'"\n}'
 
 
-        with open('blockchain.json', 'w') as textwrite:
+        with open('./Blockchain/bloque.json', 'w') as textwrite:
             textwrite.write(stringfile)

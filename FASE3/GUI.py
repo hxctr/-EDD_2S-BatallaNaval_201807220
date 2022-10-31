@@ -65,8 +65,13 @@ def insertMatrixPlayerOne():
             matriz1.graficarNeato("jugador_1")
             setMatrixOne()
         elif matriz_size_player_1 >= 21 and matriz_size_player_1 <= 30:
-            secondFill(matriz_size_player_1, matriz1)
+            secondFill(matriz_size_player_1, matriz1, auxlist1)
             matriz1.graficarNeato("jugador_1")
+            setMatrixOne()
+        elif matriz_size_player_1 >= 31 and matriz_size_player_1 <= 40:
+            thirdFill(matriz_size_player_1, matriz1)
+            matriz1.graficarNeato("jugador_1")
+            setMatrixOne()
 
 def graph_adjacent_list_1():
     
@@ -458,8 +463,9 @@ def insertMatrixPlayerTwo():
             matriz2.graficarNeato("jugador_2")
             setMatrixTwo()
         elif matriz_size_player_2 >= 21 and matriz_size_player_2 <= 30:
-            secondFill(matriz_size_player_2, matriz2)
-            matriz2.graficarNeato("_jugador_2")
+            secondFill(matriz_size_player_2, matriz2, auxlist2)
+            matriz2.graficarNeato("jugador_2")
+            setMatrixTwo()
 
 def graph_adjacent_list_2():
     
@@ -503,40 +509,43 @@ def firstFill(tamaño, matriz, auxlist):#11<= m <= 20
             auxlist.insert(0, index)
     
     #submarinos
-    # print("submarinos")
-    # top2 = 7
-    # except2 = (1, 3, 5)
-    # for index in range(top2):
-    #     if index not in except2:
-    #         # print(index)#insert portaaviones
-    #         matriz.insert(int(tamaño / 4), index, "S")
-    #         auxlist.insert(int(tamaño / 4), index)
-    #         matriz.insert(1 + int(tamaño / 4), index, "S")
-    #         auxlist.insert(1 + int(tamaño / 4), index)
-    #         matriz.insert(2 + int(tamaño / 4), index, "S")
-    #         auxlist.insert(2 + int(tamaño / 4), index)
+    print("submarinos")
+    top2 = 7
+    except2 = (1, 3, 5)
+    for index in range(top2):
+        if index not in except2:
+            # print(index)#insert portaaviones
+            matriz.insert(int(tamaño / 4), index, "S")
+            auxlist.insert(int(tamaño / 4), index)
+            matriz.insert(1 + int(tamaño / 4), index, "S")
+            auxlist.insert(1 + int(tamaño / 4), index)
+            matriz.insert(2 + int(tamaño / 4), index, "S")
+            auxlist.insert(2 + int(tamaño / 4), index)
     
-    # print("Destructores")
-    # top3 = 11
-    # except3 = (1, 3, 5, 7, 9,)
-    # for index in range(top3):
-    #     if index not in except3:
-    #         # print(index)#insert portaaviones
-    #         matriz.insert(int((tamaño / 4)*2), index, "D")
-    #         auxlist.insert(int((tamaño / 4)*2), index)
-    #         matriz.insert(1+int((tamaño / 4)*2), index, "D")
-    #         auxlist.insert(1+int((tamaño / 4)*2), index)
+    print("Destructores")
+    top3 = 11
+    except3 = (1, 3, 5, 7, 9,)
+    for index in range(top3):
+        if index not in except3:
+            # print(index)#insert portaaviones
+            matriz.insert(int((tamaño / 4)*2), index, "D")
+            auxlist.insert(int((tamaño / 4)*2), index)
+            matriz.insert(1+int((tamaño / 4)*2), index, "D")
+            auxlist.insert(1+int((tamaño / 4)*2), index)
 
-    # print("buques")
-    # top4 = 13
-    # except4 = (3, 5, 7, 9, 11,)
-    # for index in range(top4):
-    #     if index not in except4:
-    #         # print(index)#insert portaaviones
-    #         matriz.insert(int((tamaño / 4)*3), index, "B")
-    #         auxlist.insert(int((tamaño / 4)*3), index) descomentar esto en un uso normal
+    print("buques")
+    top4 = 13
+    except4 = (3, 5, 7, 9, 11,)
+    for index in range(top4):
+        if index not in except4:
+            # print(index)#insert portaaviones
+            matriz.insert(int((tamaño / 4)*3), index, "B")
+            auxlist.insert(int((tamaño / 4)*3), index) #descomentar esto en un uso normal
 
-def secondFill(tamaño, matriz):#21<= m <= 30
+
+
+
+def secondFill(tamaño, matriz, auxlist):#21<= m <= 30
     #insertar portaaviones
     top1 = 14
     exceptions = (4,9,)
@@ -544,6 +553,7 @@ def secondFill(tamaño, matriz):#21<= m <= 30
         if index not in exceptions:
             # print(index)#insert portaaviones
             matriz.insert(0, index, "P")
+            auxlist.insert(0, index)
     
     #submarinos
     print("submarinos")
@@ -553,8 +563,11 @@ def secondFill(tamaño, matriz):#21<= m <= 30
         if index not in except2:
             # print(index)#insert portaaviones
             matriz.insert(int(tamaño / 4), index, "S")
+            auxlist.insert(int(tamaño / 4), index)
             matriz.insert(1 + int(tamaño / 4), index, "S")
+            auxlist.insert(1 + int(tamaño / 4), index)
             matriz.insert(2 + int(tamaño / 4), index, "S")
+            auxlist.insert(2 + int(tamaño / 4), index)
     
     print("Destructores")
     top3 = 17
@@ -563,7 +576,9 @@ def secondFill(tamaño, matriz):#21<= m <= 30
         if index not in except3:
             # print(index)#insert portaaviones
             matriz.insert(int((tamaño / 4)*2), index, "D")
+            auxlist.insert(int((tamaño / 4)*2), index)
             matriz.insert(1+int((tamaño / 4)*2), index, "D")
+            auxlist.insert(1+int((tamaño / 4)*2), index)
 
     print("buques")
     top4 = 21
@@ -572,8 +587,9 @@ def secondFill(tamaño, matriz):#21<= m <= 30
         if index not in except4:
             # print(index)#insert portaaviones
             matriz.insert(int((tamaño / 4)*3), index, "B")
+            auxlist.insert(int((tamaño / 4)*3), index)
 
-def thirdFill(tamaño, matriz):#31<= m <= 40
+def thirdFill(tamaño, matriz, auxlist):#31<= m <= 40
     #insertar portaaviones
     top1 = 19
     exceptions = (4,9,14,)
@@ -658,9 +674,9 @@ def loadUsers():
     list_items.insertInfo(30)
     
     
-    # path_file = simpledialog.askstring("Ingrese la ruta del archivo .json: ", 'Ingrese la ruta', parent=root) descomentar luego
+    path_file = simpledialog.askstring("Ingrese la ruta del archivo .json: ", 'Ingrese la ruta', parent=root)
     
-    path_file = '/home/fdd/Descargas/-EDD_2S-BatallaNaval_201807220/FASE3/Entradafinal.json'
+    # path_file = '/home/fdd/Descargas/-EDD_2S-BatallaNaval_201807220/FASE3/Entradafinal.json'
     
     if path_file is not None:
         print('la ruta es: ', path_file)
@@ -680,7 +696,7 @@ def loadUsers():
     
     
     
-loadUsers()
+
     
 def login():
     global shopping_list
@@ -856,6 +872,16 @@ def displayHashTable():
     img_adjacent.image =  img3
     img_adjacent.img3 = img3
 
+def notCloseTransferInList():
+    ids = shopping_list.sendIdsToPY()
+    if len(ids) != 0:
+        messagebox.showwarning("Advertencia", "Alto, aùn hay transferencias por confirmar")
+    else:
+        root.destroy()
+    
+    
+    #uron
+    
 def insertInMerkleTree():# se ejecuta con GENERAR BLOQUE
     #Aqui solo inserto en el merkle, la concatenacion de las fechas con ids,
     #en blockain mando esa misma cadena, y le mando el tophash
@@ -887,7 +913,7 @@ def insertInMerkleTree():# se ejecuta con GENERAR BLOQUE
     # shopping_list = items.ListaArticulos()
     shopping_list.deleteList()
     
-    blockchain.graficarBlockchain()
+    blockchain.escribirBloque()
 
 def displayBMerkle():
     popup_hashtable = tk.Toplevel()
@@ -951,6 +977,8 @@ def privateKeyWindow():
     GLineEdit_248.insert(0, priv_key)
     
     
+    
+    
 
     GLineEdit_386=tk.Entry(popup_privatekey)
     GLineEdit_386["borderwidth"] = "1px"
@@ -972,6 +1000,8 @@ def privateKeyWindow():
 
     GLineEdit_386.delete(0, tk.END)
     GLineEdit_386.insert(0, acct.address)
+    global addreswallettext 
+    addreswallettext = acct.address
 
     
     
@@ -983,9 +1013,11 @@ def confirmPurchase():
     precio = shopping_list.sendPrecioToPY()
     nombre = shopping_list.sendNombreToPY()
     
-    #comer
+    
+    privatekeyforwaller = simpledialog.askstring('Wallet',"Ingrese su llave privada: ", parent=root)
+    print(privatekeyforwaller)
     jsonPurchase = ""
-    jsonPurchase = '"DATA":{\n\t"FROM": "0x4281ecf07378ee595c564a59048801330f3084ee",\n'
+    jsonPurchase = '"DATA":{\n\t"FROM": "'+str(addreswallettext)+'",\n'
     
     hashTable = ClosedHashing(13, 20, 80, "Division", "cuadratica")
     for i in range(len(ids)):
@@ -993,7 +1025,7 @@ def confirmPurchase():
         hashTable.insert(node)
         jsonPurchase += '\t"SKINS": [\n'
         jsonPurchase += '\t\t{\n'
-        jsonPurchase += '\t\t\t"SKIN":'+str(ids[i])+'\n'
+        jsonPurchase += '\t\t\t"SKIN":'+str(ids[i])+',\n'
         jsonPurchase += '\t\t\t"VALUE":'+str(precio[i])+'\n'
         jsonPurchase += '\t\t},\n'
         print(ids[i], precio[i], nombre[i])
@@ -1003,9 +1035,10 @@ def confirmPurchase():
     textname = textname.replace(":", "--")
     textname = textname.replace("/", "-")
     #str(len(ids))+str(time.strftime("%d/%m/%y"))+"-"+str(time.strftime("%H:%M:%S"))
-    with open(textname+".json", 'w') as textwrite:
+    with open('./Blockchain/'+textname+".json", 'w') as textwrite:
         textwrite.write(jsonPurchase)
-            
+    
+           
  
     
     graphHashTable = hashTable.getGraph()
@@ -1763,6 +1796,11 @@ btn_gen_genesis.pack(pady=40, padx=20)
 btn_gen_wallet = tk.Button(
     user_frame, font=font_small, text='Generar llave privada', command=privateKeyWindow)
 btn_gen_wallet.place(x=1270, y=780, width=179, height=33)
+
+
+btn_cerrar = tk.Button(
+    user_frame, font=font_small, text='Cerrar', command= notCloseTransferInList)
+btn_cerrar.place(x=1380, y=50, width=70, height=25)
 
 
 
